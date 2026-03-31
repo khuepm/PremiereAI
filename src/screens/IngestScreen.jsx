@@ -1,12 +1,13 @@
 import { useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Upload, Film, Music, Image, X, ChevronRight, Sparkles } from "lucide-react";
+import AppLayout from "../components/AppLayout";
+import AIPromptBar from "../components/AIPromptBar";
 import styles from "./IngestScreen.module.css";
 
 const ACCEPT_TYPES = {
-  video: ["mp4", "mov", "avi", "mkv", "webm"],
+  video: ["mp4", "mov", "avi", "mkv", "webm", "prores"],
   audio: ["mp3", "wav", "aac", "flac", "ogg"],
-  image: ["jpg", "jpeg", "png", "gif", "webp"],
+  image: ["jpg", "jpeg", "png", "gif", "webp", "raw"],
 };
 
 function fileType(name) {
@@ -17,19 +18,17 @@ function fileType(name) {
   return "other";
 }
 
-function FileIcon({ type }) {
-  const props = { size: 16 };
-  if (type === "video") return <Film {...props} />;
-  if (type === "audio") return <Music {...props} />;
-  if (type === "image") return <Image {...props} />;
-  return <Film {...props} />;
-}
+const RECENT_MEDIA = [
+  { id: "r1", label: "Cinematic landscape shot", duration: "00:42", color: "#3a2d6b" },
+  { id: "r2", label: "City lights at night", duration: "01:15", color: "#1a3a4b" },
+  { id: "r3", label: "Portrait lighting study", duration: "00:08", color: "#4b1a2d" },
+  { id: "r4", label: "Macro lens tech detail", duration: "00:24", color: "#2d3a1a" },
+];
 
 export default function IngestScreen() {
   const navigate = useNavigate();
   const [files, setFiles] = useState([]);
   const [dragging, setDragging] = useState(false);
-  const [prompt, setPrompt] = useState("");
   const inputRef = useRef(null);
 
   const addFiles = useCallback((incoming) => {
@@ -49,7 +48,7 @@ export default function IngestScreen() {
       setDragging(false);
       addFiles(e.dataTransfer.files);
     },
-    [addFiles]
+    [addFiles],
   );
 
   const handleDragOver = (e) => {
@@ -59,52 +58,31 @@ export default function IngestScreen() {
 
   const handleDragLeave = () => setDragging(false);
 
-  const removeFile = (id) =>
-    setFiles((prev) => prev.filter((f) => f.id !== id));
-
-  const formatSize = (bytes) => {
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  const handleBrowse = (e) => {
+    e.stopPropagation();
+    inputRef.current?.click();
   };
 
-  const canContinue = files.length > 0;
-
-  const handleContinue = () => {
-    if (!canContinue) return;
-    navigate("/processing", { state: { files, prompt } });
+  const handlePrompt = (text) => {
+    navigate("/processing", { state: { files, prompt: text } });
   };
 
   return (
-    <div className={styles.root}>
-      {/* Header */}
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <Sparkles size={20} className={styles.logoIcon} />
-          <span className={styles.logoText}>PremiereAI</span>
-        </div>
-        <nav className={styles.steps}>
-          <StepDot label="Ingest" active />
-          <div className={styles.stepLine} />
-          <StepDot label="Processing" />
-          <div className={styles.stepLine} />
-          <StepDot label="Editor" />
-          <div className={styles.stepLine} />
-          <StepDot label="Export" />
-        </nav>
-      </header>
-
-      {/* Main */}
-      <main className={styles.main}>
-        <div className={styles.intro}>
-          <h1 className={styles.title}>Drop your footage</h1>
+    <AppLayout activeNav="media">
+      <div className={styles.page}>
+        {/* Hero header */}
+        <section className={styles.hero}>
+          <h1 className={styles.heading}>
+            1. Ingest &amp; <span className={styles.headingAccent}>Setup</span>
+          </h1>
           <p className={styles.subtitle}>
-            Add videos, audio, and images. We handle the rest.
+            Ready your workspace. Drop your raw footage here and let AI analyze
+            the depth, lighting, and key subjects for an effortless edit.
           </p>
-        </div>
+        </section>
 
         {/* Drop zone */}
-        <div
+        <section
           className={`${styles.dropzone} ${dragging ? styles.dropzoneActive : ""}`}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
@@ -122,88 +100,90 @@ export default function IngestScreen() {
             className={styles.hiddenInput}
             onChange={(e) => addFiles(e.target.files)}
           />
-          <div className={styles.dropzoneInner}>
-            <div className={styles.uploadIcon}>
-              <Upload size={32} />
-            </div>
-            <p className={styles.dropzoneTitle}>
-              Drag & drop files here
-            </p>
-            <p className={styles.dropzoneHint}>
-              MP4, MOV, AVI · MP3, WAV · JPG, PNG
-            </p>
-            <button className={styles.browseBtn} tabIndex={-1}>
-              Browse files
-            </button>
-          </div>
-        </div>
 
-        {/* File list */}
+          <div className={styles.dropzoneInner}>
+            <div className={`${styles.uploadIconCircle} ai-gradient`}>
+              <span className="material-symbols-outlined" style={{ fontSize: 36, color: "var(--on-primary)" }}>
+                upload_file
+              </span>
+            </div>
+
+            <h3 className={styles.dropzoneTitle}>Drag &amp; Drop Media</h3>
+            <p className={styles.dropzoneHint}>
+              Support for 4K ProRes, H.264, and RAW files. Your AI analysis will
+              begin immediately upon upload.
+            </p>
+
+            <div className={styles.dropzoneBtns}>
+              <button className={styles.browseBtn} onClick={handleBrowse} tabIndex={-1}>
+                Browse Files
+              </button>
+              <button className={styles.browseBtn} onClick={(e) => e.stopPropagation()} tabIndex={-1}>
+                Link Cloud Drive
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Uploaded file chips */}
         {files.length > 0 && (
-          <div className={styles.fileList}>
+          <div className={styles.fileChips}>
             {files.map((f) => (
-              <div key={f.id} className={styles.fileItem}>
-                <span className={styles.fileIcon}>
-                  <FileIcon type={f.type} />
+              <span key={f.id} className={styles.fileChip}>
+                <span className="material-symbols-outlined" style={{ fontSize: 16 }}>
+                  {f.type === "video" ? "movie" : f.type === "audio" ? "music_note" : "image"}
                 </span>
-                <span className={styles.fileName}>{f.name}</span>
-                <span className={styles.fileSize}>{formatSize(f.size)}</span>
-                <button
-                  className={styles.removeBtn}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    removeFile(f.id);
-                  }}
-                  aria-label="Remove file"
-                >
-                  <X size={14} />
-                </button>
-              </div>
+                {f.name}
+              </span>
             ))}
           </div>
         )}
 
-        {/* AI Prompt for this project */}
-        <div className={styles.promptSection}>
-          <label className={styles.promptLabel} htmlFor="project-prompt">
-            What's the vibe? <span className={styles.optional}>(optional)</span>
-          </label>
-          <textarea
-            id="project-prompt"
-            className={styles.promptInput}
-            placeholder='e.g. "Highlight reel of our summer trip, cinematic feel, upbeat music…"'
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            rows={3}
-          />
-        </div>
-      </main>
+        {/* Recent Media */}
+        <section className={styles.recentSection}>
+          <div className={styles.recentHeader}>
+            <h4 className={styles.recentTitle}>Recent Media</h4>
+            <button className={styles.viewLibrary}>
+              View Library
+              <span className="material-symbols-outlined" style={{ fontSize: 14 }}>
+                arrow_forward
+              </span>
+            </button>
+          </div>
 
-      {/* Footer CTA */}
-      <footer className={styles.footer}>
-        <span className={styles.fileCount}>
-          {files.length > 0
-            ? `${files.length} file${files.length > 1 ? "s" : ""} ready`
-            : "No files added yet"}
-        </span>
-        <button
-          className={`${styles.continueBtn} ${!canContinue ? styles.continueBtnDisabled : ""}`}
-          onClick={handleContinue}
-          disabled={!canContinue}
-        >
-          Let AI edit
-          <ChevronRight size={18} />
-        </button>
-      </footer>
-    </div>
-  );
-}
+          <div className={styles.recentGrid}>
+            {RECENT_MEDIA.map((item) => (
+              <div key={item.id} className={styles.thumbnail}>
+                <div
+                  className={styles.thumbnailImage}
+                  style={{ background: item.color }}
+                />
+                <div className={styles.thumbnailOverlay} />
+                <div className={styles.thumbnailMeta}>
+                  <span className={styles.thumbnailDuration}>{item.duration}</span>
+                  <span
+                    className={`material-symbols-outlined ${styles.thumbnailCheck}`}
+                    style={{ fontVariationSettings: "'FILL' 1" }}
+                  >
+                    check_circle
+                  </span>
+                </div>
+              </div>
+            ))}
 
-function StepDot({ label, active }) {
-  return (
-    <div className={`${styles.stepDot} ${active ? styles.stepDotActive : ""}`}>
-      <div className={styles.stepDotCircle} />
-      <span className={styles.stepDotLabel}>{label}</span>
-    </div>
+            {/* Empty placeholder */}
+            <div className={styles.thumbnailAdd}>
+              <span className="material-symbols-outlined">add</span>
+            </div>
+          </div>
+        </section>
+
+        {/* AI Prompt Bar */}
+        <AIPromptBar
+          onSubmit={handlePrompt}
+          placeholder="Ask AI to organize or tag these clips..."
+        />
+      </div>
+    </AppLayout>
   );
 }
