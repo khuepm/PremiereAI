@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PremiereAI - Ingest &amp; Setup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#000000",
+                        "tertiary-dim": "#ee77a3",
+                        "on-primary-container": "#280072",
+                        "on-primary-fixed-variant": "#32008a",
+                        "surface-tint": "#b6a0ff",
+                        "outline": "#767575",
+                        "primary-dim": "#7e51ff",
+                        "surface-container-low": "#131313",
+                        "outline-variant": "#484847",
+                        "tertiary-container": "#fb81ae",
+                        "on-tertiary-container": "#59002e",
+                        "on-secondary-container": "#e8fbff",
+                        "tertiary-fixed": "#ff8db6",
+                        "on-primary": "#340090",
+                        "on-primary-fixed": "#000000",
+                        "on-error": "#490013",
+                        "surface-container-high": "#20201f",
+                        "surface-container": "#1a1a1a",
+                        "on-surface": "#ffffff",
+                        "inverse-primary": "#6834eb",
+                        "error": "#ff6e84",
+                        "on-secondary-fixed-variant": "#005964",
+                        "primary-container": "#a98fff",
+                        "surface-dim": "#0e0e0e",
+                        "on-tertiary-fixed-variant": "#70103e",
+                        "on-surface-variant": "#adaaaa",
+                        "error-dim": "#d73357",
+                        "surface-container-highest": "#262626",
+                        "background": "#0e0e0e",
+                        "surface-variant": "#262626",
+                        "on-secondary-fixed": "#003a42",
+                        "secondary-fixed-dim": "#00d7f0",
+                        "primary": "#b6a0ff",
+                        "surface-bright": "#2c2c2c",
+                        "primary-fixed": "#a98fff",
+                        "on-secondary": "#004d57",
+                        "secondary-container": "#006875",
+                        "primary-fixed-dim": "#9c7eff",
+                        "secondary-fixed": "#26e6ff",
+                        "on-tertiary-fixed": "#37001a",
+                        "secondary": "#00e3fd",
+                        "tertiary": "#ff96bb",
+                        "secondary-dim": "#00d4ec",
+                        "surface": "#0e0e0e",
+                        "error-container": "#a70138",
+                        "on-tertiary": "#690939",
+                        "on-error-container": "#ffb2b9",
+                        "inverse-surface": "#fcf9f8",
+                        "tertiary-fixed-dim": "#f57ca9",
+                        "on-background": "#ffffff",
+                        "inverse-on-surface": "#565555"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .surface-tonal-shift {
+            background: linear-gradient(180deg, #131313 0%, #0e0e0e 100%);
+        }
+        .glass-prompt {
+            background: rgba(38, 38, 38, 0.6);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(72, 72, 71, 0.15);
+        }
+        .ai-gradient {
+            background: linear-gradient(135deg, #b6a0ff 0%, #7e51ff 100%);
+        }
+        .dashed-border {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='24' ry='24' stroke='%23484847' stroke-width='2' stroke-dasharray='12%2c 12' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-6 w-full sticky top-0 z-50 h-16 border-none bg-[#0e0e0e]">
+<div class="flex items-center gap-8">
+<span class="text-xl font-extrabold tracking-tighter text-[#b6a0ff] font-headline">PremiereAI</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#b6a0ff] font-bold font-headline text-lg tracking-tight" href="#">Media</a>
+<a class="text-[#adaaaa] hover:text-white transition-colors font-headline text-lg tracking-tight" href="#">Timeline</a>
+<a class="text-[#adaaaa] hover:text-white transition-colors font-headline text-lg tracking-tight" href="#">Assets</a>
+<a class="text-[#adaaaa] hover:text-white transition-colors font-headline text-lg tracking-tight" href="#">Exports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#adaaaa] hover:bg-[#262626] p-2 rounded-lg transition-all duration-300 cursor-pointer active:scale-95" data-icon="cloud_done">cloud_done</button>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-full text-sm font-bold cursor-pointer active:scale-95 transition-all">Export</button>
+<div class="material-symbols-outlined text-[#adaaaa] hover:bg-[#262626] p-2 rounded-lg transition-all duration-300 cursor-pointer" data-icon="account_circle">account_circle</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 pt-16 bg-[#0e0e0e] border-r border-[#484847]/15 flex flex-col z-40 hidden md:flex">
+<div class="px-6 py-8">
+<h2 class="text-[#b6a0ff] font-headline font-bold text-lg">Project Alpha</h2>
+<p class="text-on-surface-variant text-xs mt-1">Draft saved 2m ago</p>
+<button class="mt-6 w-full ai-gradient text-on-primary font-bold py-3 rounded-xl flex items-center justify-center gap-2 cursor-pointer active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="add_circle">add_circle</span>
+                New AI Draft
+            </button>
+</div>
+<nav class="flex-1 px-2">
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-white border-r-2 border-[#b6a0ff] bg-gradient-to-r from-[#b6a0ff]/10 to-transparent">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+<span class="font-['Inter'] text-sm font-medium">Media</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="view_timeline">view_timeline</span>
+<span class="font-['Inter'] text-sm font-medium">Timeline</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="font-['Inter'] text-sm font-medium">Assets</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="file_upload">file_upload</span>
+<span class="font-['Inter'] text-sm font-medium">Exports</span>
+</div>
+</nav>
+<div class="p-4 border-t border-[#484847]/15">
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Inter'] text-sm font-medium">Settings</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="font-['Inter'] text-sm font-medium">Help</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 p-8 min-h-[calc(100vh-4rem)] flex flex-col gap-8 relative pb-32">
+<!-- Welcome Header -->
+<section class="max-w-5xl">
+<h1 class="text-display-lg font-headline font-extrabold text-4xl lg:text-5xl tracking-tight text-on-surface">
+                1. Ingest &amp; <span class="text-primary">Setup</span>
+</h1>
+<p class="text-on-surface-variant mt-3 text-lg max-w-2xl">
+                Ready your workspace. Drop your raw footage here and let AI analyze the depth, lighting, and key subjects for an effortless edit.
+            </p>
+</section>
+<!-- Centered Ingest Zone -->
+<section class="flex-1 flex flex-col items-center justify-center min-h-[400px] dashed-border rounded-[24px] bg-surface-container-low transition-all hover:bg-surface-container duration-500 cursor-pointer group">
+<div class="flex flex-col items-center text-center p-12">
+<div class="w-20 h-20 rounded-full ai-gradient flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(182,160,255,0.3)] group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-4xl text-on-primary" data-icon="upload_file">upload_file</span>
+</div>
+<h3 class="text-2xl font-headline font-bold mb-2">Drag &amp; Drop Media</h3>
+<p class="text-on-surface-variant max-w-sm">Support for 4K ProRes, H.264, and RAW files. Your AI analysis will begin immediately upon upload.</p>
+<div class="mt-8 flex gap-3">
+<button class="bg-surface-container-highest px-6 py-3 rounded-xl font-medium text-on-surface hover:bg-surface-bright transition-all border border-outline-variant/20">Browse Files</button>
+<button class="bg-surface-container-highest px-6 py-3 rounded-xl font-medium text-on-surface hover:bg-surface-bright transition-all border border-outline-variant/20">Link Cloud Drive</button>
+</div>
+</div>
+</section>
+<!-- Recent Media Grid -->
+<section class="mt-4">
+<div class="flex items-center justify-between mb-6">
+<h4 class="text-xl font-headline font-bold">Recent Media</h4>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+                    View Library <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+<!-- Thumbnail Item -->
+<div class="group relative aspect-video rounded-xl overflow-hidden bg-surface-container-high border border-outline-variant/10 cursor-pointer">
+<img alt="Cinematic landscape shot" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Cinematic landscape shot of a misty forest at dawn with purple and blue atmospheric lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAukN6TedjwJchNIIzLXBTtF7UsKniOLUm2D4J--QJ-on2qcMuFLt5sci6m5RS882ZhQIcjvpJqzvXbGNrwBCnw3aCdUrHNnfWM8LJHSx0Bi2lxFNYxBIsX3vQ0LUJyBEBxdsGHs5v5kSZ6OaQUgjJDXeLTV5l3wnxKW5JCR01iDayIMHtcxIpARtQzQKB5PHyX_zg-s2QKd-SuYAP6zsx5gshhP_tve0dBLAdL_Rc4yLlWpYg7HAm_JXTzv6cMryKNAF5W11U1PpDJ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-2 left-2 right-2 flex justify-between items-center">
+<span class="text-[10px] font-bold bg-black/50 backdrop-blur-md px-2 py-0.5 rounded text-white">00:42</span>
+<span class="material-symbols-outlined text-primary text-sm opacity-0 group-hover:opacity-100 transition-opacity" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Thumbnail Item -->
+<div class="group relative aspect-video rounded-xl overflow-hidden bg-surface-container-high border border-outline-variant/10 cursor-pointer">
+<img alt="City lights at night" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Vibrant cityscape at night with neon signs reflecting in rain-slicked streets, cyberpunk aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDq-SDQV0Nr_p8uMEzoxnZjtATktLIRD2XXoMPGEFMn7TdM5tbbz55F7twLGS1nzLvS_tLN7TqnLFHRKUtEUTGnb8ny9suOly2BTE71uexRfolzHUlvS5FwoFPPWxo3SnM7t9wJ35C_e1L1KNjdQ9ssI9NyBd7q1h8dqVw4scse7IoD61uudc3vZjtiq--oTswvw8QR3XI7MJR2bB-AoIF62zJZbeN4b0XV-eovnyzusFHjbtxdeJlZynNCvbTZFMFbXf-N0yejSXH8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-2 left-2 right-2 flex justify-between items-center">
+<span class="text-[10px] font-bold bg-black/50 backdrop-blur-md px-2 py-0.5 rounded text-white">01:15</span>
+<span class="material-symbols-outlined text-primary text-sm opacity-0 group-hover:opacity-100 transition-opacity" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Thumbnail Item -->
+<div class="group relative aspect-video rounded-xl overflow-hidden bg-surface-container-high border border-outline-variant/10 cursor-pointer">
+<img alt="Portrait lighting study" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Dramatic high-contrast portrait of a person with colorful stage lighting, deep shadows and glowing highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8qp_TsDjJVkUsSzamvVi0opnioIIAYpDyH-3XV6D2BACwF7beMWEePvK4t4xMRAHSgHTvq8n1Vxy7EHGDDD5AVoirDzvoqTyhIp_a1gY6Vk3h3kR6tql7QyDHDfl4FFGoL6gf_ByE8h5rLCpekUTbPr7AdX5eOH29EasJ8IO043xGhE9SpA8WwqdFabAXqT_brl0o-gJjQTz_X3uPaozkc5pC_FGb5sW-AUNmywn-uC3SqrV8EBIhn3MS24BdhoTF8L30rh-mDQUg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-2 left-2 right-2 flex justify-between items-center">
+<span class="text-[10px] font-bold bg-black/50 backdrop-blur-md px-2 py-0.5 rounded text-white">00:08</span>
+<span class="material-symbols-outlined text-primary text-sm opacity-0 group-hover:opacity-100 transition-opacity" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Thumbnail Item -->
+<div class="group relative aspect-video rounded-xl overflow-hidden bg-surface-container-high border border-outline-variant/10 cursor-pointer">
+<img alt="Macro lens tech detail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Macro close-up of a vintage camera lens reflecting light, intricate mechanical details and bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg8_sGEt_mXaK0RWb3jfIsh0qG1Gbi1_kRxQ1BkGZtXRLvJ-z7ShIhncC4mfu2IBqS89oHn8ydAPwS4NWE0UwsbUA1VGh2ocheiI9rqHNUN7GVcuEJ22o6JPqIf7vZLo15-zVbkL4_WxiyKAt27hr7qDJGSZIhehD3yg0U2IyzF3PflBDk6XyRWFMAPDmheICjGnsSFOCg-dnR4dYebMwwVCLVOSMKbwGZkoNk7XOPaNx9S8MYL-mQralbt2pSKE8_VVnjcg4d5uPB"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-2 left-2 right-2 flex justify-between items-center">
+<span class="text-[10px] font-bold bg-black/50 backdrop-blur-md px-2 py-0.5 rounded text-white">00:24</span>
+<span class="material-symbols-outlined text-primary text-sm opacity-0 group-hover:opacity-100 transition-opacity" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Empty Placeholder -->
+<div class="aspect-video rounded-xl border border-dashed border-outline-variant/30 flex items-center justify-center hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="add">add</span>
+</div>
+</div>
+</section>
+<!-- AI Prompt Bar (Floating Signature Component) -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-full max-w-3xl px-6 z-50">
+<div class="glass-prompt p-2 rounded-full flex items-center shadow-2xl">
+<div class="flex-1 flex items-center px-4">
+<span class="material-symbols-outlined text-primary mr-3" data-icon="auto_awesome">auto_awesome</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-on-surface-variant w-full text-sm font-medium outline-none" placeholder="Ask AI to organize or tag these clips..." type="text"/>
+</div>
+<button class="ai-gradient p-2.5 rounded-full text-on-primary hover:shadow-[0_0_20px_rgba(182,160,255,0.4)] transition-all active:scale-90">
+<span class="material-symbols-outlined leading-none block" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</main>
+</body></html>

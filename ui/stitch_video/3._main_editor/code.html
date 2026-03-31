@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PremiereAI - Main Editor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error": "#ff6e84",
+              "primary": "#b6a0ff",
+              "on-surface": "#ffffff",
+              "inverse-surface": "#fcf9f8",
+              "surface-container-high": "#20201f",
+              "tertiary": "#ff96bb",
+              "on-error": "#490013",
+              "secondary-fixed-dim": "#00d7f0",
+              "surface-container-low": "#131313",
+              "primary-fixed-dim": "#9c7eff",
+              "primary-fixed": "#a98fff",
+              "on-secondary-container": "#e8fbff",
+              "primary-dim": "#7e51ff",
+              "on-surface-variant": "#adaaaa",
+              "secondary": "#00e3fd",
+              "tertiary-fixed-dim": "#f57ca9",
+              "surface-variant": "#262626",
+              "surface-dim": "#0e0e0e",
+              "outline-variant": "#484847",
+              "on-background": "#ffffff",
+              "surface-tint": "#b6a0ff",
+              "background": "#0e0e0e",
+              "surface-container-highest": "#262626",
+              "secondary-container": "#006875",
+              "inverse-on-surface": "#565555",
+              "on-secondary-fixed-variant": "#005964",
+              "on-primary-fixed-variant": "#32008a",
+              "on-tertiary-fixed-variant": "#70103e",
+              "on-secondary-fixed": "#003a42",
+              "surface": "#0e0e0e",
+              "on-primary-container": "#280072",
+              "primary-container": "#a98fff",
+              "inverse-primary": "#6834eb",
+              "on-primary-fixed": "#000000",
+              "on-secondary": "#004d57",
+              "error-dim": "#d73357",
+              "secondary-fixed": "#26e6ff",
+              "surface-bright": "#2c2c2c",
+              "on-primary": "#340090",
+              "error-container": "#a70138",
+              "secondary-dim": "#00d4ec",
+              "on-tertiary-container": "#59002e",
+              "surface-container": "#1a1a1a",
+              "surface-container-lowest": "#000000",
+              "on-tertiary": "#690939",
+              "tertiary-fixed": "#ff8db6",
+              "tertiary-dim": "#ee77a3",
+              "tertiary-container": "#fb81ae",
+              "outline": "#767575",
+              "on-error-container": "#ffb2b9",
+              "on-tertiary-fixed": "#37001a"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#0e0e0e]/80 backdrop-blur-xl bg-gradient-to-b from-[#131313] to-transparent">
+<div class="flex items-center gap-4">
+<button class="text-[#adaaaa] hover:text-[#00e3fd] transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<span class="text-xl font-black text-[#b6a0ff] uppercase tracking-widest font-headline">PremiereAI</span>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-[#adaaaa] hover:text-[#00e3fd] transition-colors font-headline font-bold tracking-tight">Export</button>
+</div>
+</header>
+<main class="pt-16 pb-32 min-h-screen flex flex-col">
+<!-- Center Stage Preview Player -->
+<section class="flex-grow px-4 md:px-8 py-4 flex items-center justify-center">
+<div class="relative w-full max-w-5xl aspect-video rounded-3xl overflow-hidden bg-surface-container-lowest shadow-2xl">
+<img alt="Cinematic wide shot of misty mountains at sunrise" class="w-full h-full object-cover" data-alt="cinematic wide shot of misty mountains at dawn with soft orange light and deep blue shadows in a high-end film style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA84ob-bhyYO5hUPEsKOlyEmrmxuY98Qk57kNim4I_TnA27YzBas8FAalHPmwrqZghGKLwEe63x8QJngjYKGiqJR_kHFiHmV6j3zSSCE0Ub1XMKm4vASdO_BaREMO99PyedlBYBb416FNpzmhzv-JbgKjAB11aSxDwIf_TOaY_tTcpNeqZcP3KzMJz4vl6U4HQGm8sI0RThpmGnB-8tdMHsyXeKec_Akoc18zAPyp7v3XuXD14bd-Gm5-kZXU29ZZvsuJmj2PYV76rP"/>
+<!-- Overlay Gradient -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+<!-- Play/Pause Control -->
+<div class="absolute inset-0 flex items-center justify-center">
+<button class="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:scale-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined !text-5xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<!-- Preview Info Tag -->
+<div class="absolute top-6 left-6 flex items-center gap-2 bg-black/40 backdrop-blur-xl px-4 py-2 rounded-full border border-white/10">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="text-[10px] font-bold tracking-widest uppercase opacity-80">4K Render Preview</span>
+</div>
+</div>
+</section>
+<!-- Sidebar Actions (Layers/Media) -->
+<div class="fixed right-6 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-40">
+<button class="w-12 h-12 rounded-2xl bg-surface-container-high/60 backdrop-blur-xl border border-white/5 flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-bright transition-all">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+</button>
+<button class="w-12 h-12 rounded-2xl bg-surface-container-high/60 backdrop-blur-xl border border-white/5 flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-bright transition-all">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+</button>
+</div>
+<!-- Smart Timeline -->
+<section class="mt-auto px-4 md:px-8 mb-8">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline font-bold text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                    Smart Timeline
+                </h3>
+<span class="text-xs font-mono text-on-surface-variant bg-surface-container-low px-2 py-1 rounded">00:12:45:08</span>
+</div>
+<div class="flex gap-1 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4 md:mx-0 md:px-0">
+<!-- Scene 1 -->
+<div class="flex-shrink-0 w-48 group cursor-pointer">
+<div class="h-24 rounded-xl bg-surface-container-low overflow-hidden border border-white/5 group-hover:border-primary/50 transition-all mb-2 relative">
+<img alt="Scenic landscape thumbnail" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="dramatic alpine landscape with reflection in calm water at sunset, high contrast cinematic grade" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX3yvFxX96kSiQOlXHVWHgyuqDfZjUvfxXDPRv4espW1403_ufizmnmw8v59L1n4-I50Wl_0LCGMYYHsFIcyvMjEmQuus5Ncfp_SJ4sGCMnnHy3ZU8z53Q2AXPyAkbmuDhNrF_Q6K-aHDjdOi5ZrBK4Xi3MSNZwlLTWywShERBmq-V0VtW47cm23mHkqt8Td0aJpuR_voUnS8RbcWBfaQd1JDRywuBYOc9M2qzo5f3I7GhKby5v_9DlREsqEpJhHO75DuNTnslYzXs"/>
+<div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur px-1.5 py-0.5 rounded text-[10px] font-bold">3.4s</div>
+</div>
+<span class="text-[10px] font-medium text-on-surface-variant uppercase tracking-wider px-1">Scene 1</span>
+</div>
+<!-- Scene 2 (Active/Selected) -->
+<div class="flex-shrink-0 w-64 group cursor-pointer">
+<div class="h-24 rounded-xl bg-primary-dim/20 overflow-hidden border-2 border-primary transition-all mb-2 relative">
+<img alt="Mist mountain thumbnail" class="w-full h-full object-cover" data-alt="misty mountain peak with dramatic lighting and cool color palette, cinematic film look" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD178v3MFZfAjqUlC1yOOJoGq3_ndq_XZXWa9-NL4Tf7uFGet75PG0iF3DtnMF1Xl5blrGR-jTCtBk0eK4uH4RmnbVR_-cY1UnFip25B80RM2zEUh5gsRAy5ybiYRDyNVTdyj2GchnGofRaLU78GNeNs23x1Qh8iVxeJpOLZOA9vQQ995KTjMYDlXAuqVOyxUj2wW_nhQ_TKYoNOg-sgbo3YUIubvJnAB_tiqhEnc-DaFfBxRotdgmc1wUb1w2LDhX6D9UH2ixXWegC"/>
+<div class="absolute inset-0 bg-primary/10"></div>
+<div class="absolute bottom-2 right-2 bg-primary px-1.5 py-0.5 rounded text-[10px] font-bold text-on-primary">5.1s</div>
+</div>
+<span class="text-[10px] font-bold text-primary uppercase tracking-wider px-1 flex items-center gap-1">
+                        Scene 2
+                        <span class="w-1 h-1 rounded-full bg-primary"></span>
+                        Active
+                    </span>
+</div>
+<!-- Scene 3 -->
+<div class="flex-shrink-0 w-40 group cursor-pointer">
+<div class="h-24 rounded-xl bg-surface-container-low overflow-hidden border border-white/5 group-hover:border-primary/50 transition-all mb-2 relative">
+<img alt="Forest thumbnail" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="lush green forest with light rays piercing through tree canopy, cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx4ULMRRBidHZzdhrreddvoIwtbKG7MkNGEOSfr7lUcOmwYdcKhfhHeLVmuMS_uHa5KDCrxuZbUe_SCQO5IwXFc_VbL1T6gbHKwCsQrLRdjiGE4l_MEeVhFUIhpXlpSBe8TQJx_-prOA5a7Ly5aEVpDhEar24ldsTIKSLR-hO21_Ec9EyKnU6M4UoCkzCtrbCQ76GesWVSJJZBlI0w5mh7OXSOaBb7Rl5ElHYKSfB32uhCmd6EwWhcn3DtojJ0r7CIEs0GyGElbfxy"/>
+<div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur px-1.5 py-0.5 rounded text-[10px] font-bold">2.8s</div>
+</div>
+<span class="text-[10px] font-medium text-on-surface-variant uppercase tracking-wider px-1">Scene 3</span>
+</div>
+<!-- Scene 4 -->
+<div class="flex-shrink-0 w-52 group cursor-pointer">
+<div class="h-24 rounded-xl bg-surface-container-low overflow-hidden border border-white/5 group-hover:border-primary/50 transition-all mb-2 relative">
+<img alt="River thumbnail" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="winding river through a valley with soft afternoon sun, cinematic landscape photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkTIRPx5tAPxF0os_Mggzm0Jm8uu71PrwETrLb6gHAvHZY8twK_2_IgMxfpTdvVukZbOwLpp3s2Yj3IjKtzDoHyKzTnpXWKiBeMnkKqsgCjbk2CwyC-wXvI5XPtuw1jgB0JZOKaWGi9-pvbM8J0OIelQtwtyYaJz7MLxFXf8oviG2Ex6r5_yDaP27Y_6UdfJlcrvOymwDM0FUDx5r_rWepdYbSfx6Dh22Ux4GFHOvWAhQ0gISaA5wyc8O29mtSWspNhioMjkrgzCx6"/>
+<div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur px-1.5 py-0.5 rounded text-[10px] font-bold">4.2s</div>
+</div>
+<span class="text-[10px] font-medium text-on-surface-variant uppercase tracking-wider px-1">Scene 4</span>
+</div>
+<!-- Scene 5 -->
+<div class="flex-shrink-0 w-32 group cursor-pointer">
+<div class="h-24 rounded-xl bg-surface-container-low overflow-hidden border border-white/5 group-hover:border-primary/50 transition-all mb-2 relative">
+<div class="w-full h-full flex items-center justify-center bg-surface-variant/40">
+<span class="material-symbols-outlined text-white/20" data-icon="add">add</span>
+</div>
+</div>
+<span class="text-[10px] font-medium text-on-surface-variant uppercase tracking-wider px-1">Add Scene</span>
+</div>
+</div>
+</section>
+<!-- AI Prompt Bar -->
+<section class="fixed bottom-24 left-0 w-full px-4 md:px-8 z-50">
+<div class="max-w-4xl mx-auto">
+<div class="bg-[#262626]/60 backdrop-blur-[24px] border border-white/10 rounded-2xl p-2 flex items-center gap-4 shadow-2xl">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#b6a0ff] to-[#7e51ff] flex items-center justify-center text-white shrink-0">
+<span class="material-symbols-outlined" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="flex-grow">
+<input class="w-full bg-transparent border-none focus:ring-0 text-on-surface placeholder-on-surface-variant font-body text-sm" placeholder='Try: "Cut this scene 1s shorter" or "Add a cinematic filter"' type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-primary-fixed-dim transition-colors shrink-0">
+                        Refine
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-8 pb-8 bg-[#262626]/60 backdrop-blur-[24px] rounded-t-[1.5rem] border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.15)] mx-4 mb-6">
+<button class="flex flex-col items-center justify-center bg-gradient-to-br from-[#b6a0ff] to-[#7e51ff] text-white rounded-xl p-3 active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="movie_edit" style="font-variation-settings: 'FILL' 1;">movie_edit</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#adaaaa] p-3 hover:bg-white/5 transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#adaaaa] p-3 hover:bg-white/5 transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#adaaaa] p-3 hover:bg-white/5 transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</nav>
+</body></html>
