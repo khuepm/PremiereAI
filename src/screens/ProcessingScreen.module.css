@@ -1,174 +1,453 @@
-.root {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background: var(--bg-base);
-  gap: var(--space-8);
-}
+/* =========================================================
+   ProcessingScreen — AI Processing View
+   ========================================================= */
 
-.logoBar {
-  position: absolute;
-  top: var(--space-4);
-  left: var(--space-8);
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.logoIcon {
-  color: var(--accent);
-}
-
-.logoText {
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  background: var(--gradient-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Card */
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-5);
-  padding: var(--space-10) var(--space-12);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-2xl);
-  width: 480px;
-  box-shadow: var(--shadow-lg);
-}
-
-/* Pulse icon */
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.8; }
-}
-
-@keyframes ring {
-  0% { transform: scale(0.9); opacity: 0.6; }
-  100% { transform: scale(1.6); opacity: 0; }
-}
-
-.pulseRing {
+/* Content wrapper */
+.content {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
+  background: var(--surface-container-low);
+  padding: var(--space-8);
+  min-height: calc(100vh - 64px);
 }
 
-.pulseRing::before {
-  content: '';
+/* AI Background Glow */
+.neuralPulse {
   position: absolute;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  border: 2px solid var(--accent);
-  animation: ring 1.5s ease-out infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(
+    circle,
+    rgba(182, 160, 255, 0.15) 0%,
+    rgba(14, 14, 14, 0) 70%
+  );
+  pointer-events: none;
+  opacity: 0.5;
 }
 
-.pulseCore {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--accent-muted);
-  border: 2px solid var(--accent-border);
+/* Center layout */
+.centerWrapper {
+  max-width: 1152px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 716px;
+  position: relative;
+  z-index: 10;
+}
+
+/* ---- Processing Visualizer ---- */
+.visualizer {
+  width: 100%;
+  max-width: 896px;
+  aspect-ratio: 21 / 9;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent);
-  animation: pulse 2s ease-in-out infinite;
+  position: relative;
+  margin-bottom: 64px;
 }
 
-.title {
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  color: var(--text-primary);
-  text-align: center;
+/* Pinging circle */
+.pingContainer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.subtitle {
-  font-size: 13px;
-  color: var(--text-secondary);
-  text-align: center;
-  max-width: 320px;
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
 }
 
-/* Progress */
-.progressWrap {
+.pingCircle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 1px solid rgba(182, 160, 255, 0.2);
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  opacity: 0.2;
+}
+
+/* Waveform bars */
+.waveform {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 128px;
+}
+
+.waveBar {
+  width: 6px;
+  background: var(--primary);
+  border-radius: var(--radius-full);
+}
+
+.waveBarSecondary {
+  background: var(--secondary);
+}
+
+/* Text below visualizer */
+.visualizerText {
+  position: absolute;
+  bottom: -32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headline {
+  font-size: 30px;
+  font-family: var(--font-headline);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--on-surface);
+  margin-bottom: 8px;
+}
+
+.subheadline {
+  color: var(--on-surface-variant);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* ---- Task Bento Grid ---- */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
   width: 100%;
-  height: 4px;
-  background: var(--bg-elevated);
+}
+
+/* Glass task card */
+.taskCard {
+  background: rgba(38, 38, 38, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(72, 72, 71, 0.15);
+  padding: var(--space-6);
+  border-radius: var(--radius-2xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.taskHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.taskInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.taskIconWrap {
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.taskIconPrimary {
+  background: rgba(182, 160, 255, 0.1);
+  color: var(--primary);
+}
+
+.taskIconSecondary {
+  background: rgba(0, 227, 253, 0.1);
+  color: var(--secondary);
+}
+
+.taskIconTertiary {
+  background: rgba(255, 150, 187, 0.1);
+  color: var(--tertiary);
+}
+
+.taskTitle {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.taskPercent {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.taskPercentPrimary {
+  color: var(--primary);
+}
+
+.taskPercentSecondary {
+  color: var(--secondary);
+}
+
+.taskPercentTertiary {
+  color: var(--tertiary);
+}
+
+/* Task progress bar */
+.taskProgressTrack {
+  height: 6px;
+  width: 100%;
+  background: var(--surface-container);
   border-radius: var(--radius-full);
   overflow: hidden;
 }
 
-.progressBar {
+.taskProgressFill {
   height: 100%;
-  background: var(--gradient-accent);
   border-radius: var(--radius-full);
   transition: width 80ms linear;
 }
 
-.progressDone {
-  background: var(--success);
+.taskProgressPrimary {
+  background: var(--primary);
 }
 
-.progressPct {
+.taskProgressSecondary {
+  background: var(--secondary);
+}
+
+.taskProgressTertiary {
+  background: rgba(255, 150, 187, 0.2);
+}
+
+.taskProgressTertiaryActive {
+  background: var(--tertiary);
+}
+
+/* Face avatars row */
+.faceAvatars {
+  margin-top: var(--space-4);
+  display: flex;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  background: var(--surface-container-high);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--on-surface-variant);
+}
+
+.avatar + .avatar,
+.avatar + .avatarCount {
+  margin-left: -8px;
+}
+
+.avatarCount {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  background: var(--surface-container-high);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: var(--on-surface-variant);
+}
+
+/* Task detail italic text */
+.taskDetail {
+  margin-top: var(--space-4);
   font-size: 12px;
-  font-family: var(--font-mono);
-  color: var(--text-tertiary);
-  align-self: flex-end;
+  color: var(--on-surface-variant);
+  font-style: italic;
 }
 
-/* Stage list */
-.stageList {
+/* Pending badge with pinging dot */
+.pendingBadge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pingDot {
+  position: relative;
+  display: flex;
+  height: 8px;
+  width: 8px;
+}
+
+@keyframes pingDot {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.pingDotRing {
+  position: absolute;
+  display: inline-flex;
+  height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+  border-radius: 50%;
+  background: var(--tertiary);
+  opacity: 0.75;
+  animation: pingDot 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-.stageItem {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-2) 0;
-  color: var(--text-tertiary);
-  transition: color var(--transition-base);
+.pingDotCore {
+  position: relative;
+  display: inline-flex;
+  border-radius: 50%;
+  height: 8px;
+  width: 8px;
+  background: var(--tertiary);
 }
 
-.stageActive {
-  color: var(--text-primary);
-}
-
-.stageDone {
-  color: var(--success);
-}
-
-.stageIconWrap {
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.stageText {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.stageLabel {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.stageDetail {
+.pendingText {
   font-size: 12px;
-  color: var(--accent);
+  font-weight: 700;
+  color: var(--tertiary);
+}
+
+/* ---- Action Footer ---- */
+.actionFooter {
+  margin-top: 64px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.cancelBtn {
+  padding: var(--space-4) var(--space-8);
+  background: rgba(38, 38, 38, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: var(--on-surface);
+  border-radius: var(--radius-2xl);
+  border: none;
+  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  transition: background var(--transition-base);
+}
+
+.cancelBtn:hover {
+  background: var(--surface-bright);
+}
+
+.cancelBtn:active {
+  transform: scale(0.95);
+}
+
+.priorityInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--on-surface-variant);
+  font-size: 14px;
+}
+
+.priorityDivider {
+  width: 1px;
+  height: 32px;
+  background: rgba(72, 72, 71, 0.3);
+}
+
+.priorityText {
+  display: flex;
+  flex-direction: column;
+}
+
+.priorityLabel {
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.priorityValue {
+  color: var(--on-surface-variant);
+  font-size: 14px;
+}
+
+/* ---- Background Texture ---- */
+.bgTexture {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 48px;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* ---- Mobile Bottom Nav ---- */
+.mobileNav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface-container-low);
+  height: 64px;
+  border-top: 1px solid rgba(72, 72, 71, 0.1);
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 var(--space-6);
+  z-index: 50;
+}
+
+.mobileNavItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--on-surface-variant);
+  text-decoration: none;
+}
+
+.mobileNavItemActive {
+  color: var(--primary);
+}
+
+.mobileNavLabel {
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .bentoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .mobileNav {
+    display: flex;
+  }
+
+  .content {
+    padding-bottom: 80px;
+  }
+
+  .headline {
+    font-size: 22px;
+  }
+
+  .actionFooter {
+    flex-direction: column;
+  }
 }
