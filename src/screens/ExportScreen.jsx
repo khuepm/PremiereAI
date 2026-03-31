@@ -39,10 +39,10 @@ export default function ExportScreen() {
           </div>
 
           <div className={styles.videoContainer}>
-            <img
-              alt="Cinematic landscape video frame"
+            <div
               className={styles.videoImage}
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8UI0cToPbP5oH01xIyzXBjZv7SNvMLXAiXgqugjXei006VEWGVwSIByEezNovBFZfhmTNJY-pPIxoySxn5HsvNtQ9QT_P_U8l5DELIx9U9IdZMUcTWREHaWj6zv-X7wwwsUvqRcMaH8OZD9nG4WL4-_ge7LLmnoWO_nV06qTD5hkDnTlm6A227_2yCbYp-hte8Wq92CGLFdS1jG33EKCxYFpUsio2nVUrkReaMkiv7Gj7yIipc8XOYpqc22VClRBTuyME_FX_Hndn"
+              role="img"
+              aria-label="Cinematic landscape video frame"
             />
             {/* Safe zone border */}
             <div className={styles.safeZone} />
