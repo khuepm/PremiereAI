@@ -1,0 +1,537 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+/* Top bar */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-6);
+  height: 48px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+  background: var(--bg-surface);
+}
+
+.logoSmall {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logoIcon {
+  color: var(--accent);
+  -webkit-text-fill-color: unset;
+}
+
+.topBarTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.topBarActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.exportBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--gradient-accent);
+  border: none;
+  border-radius: var(--radius-full);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.exportBtn:hover {
+  opacity: 0.88;
+}
+
+/* Body layout */
+.body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Preview panel */
+.previewPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: 1px solid var(--border-subtle);
+}
+
+.centerStage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  gap: var(--space-3);
+  overflow: hidden;
+}
+
+.videoPlaceholder {
+  flex: 1;
+  background: #000;
+  border-radius: var(--radius-lg);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  min-height: 200px;
+}
+
+/* Subtle scanline effect for cinematic feel */
+.videoPlaceholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.01) 0px,
+    rgba(255,255,255,0.01) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
+}
+
+.videoOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(124, 92, 246, 0.08) 0%, transparent 70%);
+}
+
+.playButton {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(124, 92, 246, 0.15);
+  border: 2px solid var(--accent-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.playButton:hover {
+  background: var(--accent-muted);
+  box-shadow: var(--shadow-glow);
+  transform: scale(1.05);
+}
+
+.videoLabel {
+  position: absolute;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+}
+
+/* Playback controls */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+.controlBtn {
+  background: none;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: var(--font-sans);
+}
+
+.controlBtn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  background: var(--bg-hover);
+}
+
+.playBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-muted);
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+.playBtn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.timecode {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  margin: 0 var(--space-3);
+}
+
+/* Scrubber */
+.scrubberWrap {
+  padding: 0 var(--space-2);
+}
+
+.scrubber {
+  width: 100%;
+  appearance: none;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--bg-elevated);
+  outline: none;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+/* AI Prompt bar */
+.promptBar {
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  display: flex;
+  flex-direction: column;
+  height: 220px;
+  flex-shrink: 0;
+}
+
+.promptHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.promptIcon {
+  color: var(--accent);
+}
+
+.promptHeaderText {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chatMessages {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.chatBubble {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 90%;
+}
+
+.chatAi {
+  color: var(--text-secondary);
+  align-self: flex-start;
+}
+
+.chatUser {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+  background: var(--accent-muted);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-lg) var(--radius-sm) var(--radius-lg) var(--radius-lg);
+  padding: var(--space-2) var(--space-3);
+  color: var(--text-primary);
+}
+
+.chatAiIcon {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.chatForm {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4) var(--space-3);
+}
+
+.chatInput {
+  flex: 1;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: var(--font-sans);
+  padding: var(--space-2) var(--space-4);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.chatInput::placeholder {
+  color: var(--text-tertiary);
+}
+
+.chatInput:focus {
+  border-color: var(--accent-border);
+}
+
+.chatSendBtn {
+  width: 32px;
+  height: 32px;
+  background: var(--gradient-accent);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.chatSendBtn:hover {
+  opacity: 0.85;
+}
+
+/* Timeline panel */
+.timelinePanel {
+  width: 420px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-surface);
+  position: relative;
+}
+
+.timelinePanelCollapsed {
+  width: 220px;
+}
+
+.timelineHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.timelineTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.timelineHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.clipCount {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-tertiary);
+}
+
+.toggleTimeline {
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
+
+.toggleTimeline:hover {
+  color: var(--text-primary);
+}
+
+/* Ruler */
+.ruler {
+  height: 24px;
+  background: var(--bg-elevated);
+  position: relative;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+  margin: 0 var(--space-4);
+  overflow: hidden;
+}
+
+.tick {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 2px;
+}
+
+.tick::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 8px;
+  background: var(--border-strong);
+}
+
+.tickLabel {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-tertiary);
+  padding-left: 3px;
+}
+
+/* Timeline track */
+.timelineTrack {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 60px;
+  position: relative;
+}
+
+.clip {
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-2);
+  cursor: pointer;
+  position: relative;
+  transition: filter var(--transition-fast), transform var(--transition-fast);
+  min-width: 40px;
+  flex-shrink: 0;
+  opacity: 0.85;
+  user-select: none;
+}
+
+.clip:hover {
+  opacity: 1;
+  filter: brightness(1.15);
+}
+
+.clipSelected {
+  opacity: 1;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  transform: scaleY(1.06);
+  filter: brightness(1.2);
+}
+
+.clipLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clipDuration {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: rgba(255,255,255,0.6);
+  flex-shrink: 0;
+  margin-left: var(--space-1);
+}
+
+.clipActions {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 4px;
+}
+
+.clipActionBtn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
+
+.clipActionBtn:hover {
+  color: var(--text-primary);
+}
+
+/* Playhead */
+.playheadLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  pointer-events: none;
+  transform: translateX(-1px);
+  z-index: 10;
+}
