@@ -1,0 +1,62 @@
+/* AIPromptBar — floating AI command bar at the bottom of the viewport */
+
+.wrapper {
+  position: fixed;
+  bottom: var(--space-5);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  width: 100%;
+  max-width: 768px;
+  padding: 0 var(--space-4);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(72, 72, 71, 0.15);
+  box-shadow: var(--shadow-lg);
+}
+
+.aiIcon {
+  flex-shrink: 0;
+  color: var(--primary);
+  font-size: 22px;
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: var(--font-body);
+  color: var(--on-surface);
+  line-height: 1.5;
+}
+
+.input::placeholder {
+  color: var(--on-surface-variant);
+}
+
+.sendBtn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: var(--radius-full);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.sendBtn:hover {
+  opacity: 0.9;
+  box-shadow: var(--shadow-glow);
+}
