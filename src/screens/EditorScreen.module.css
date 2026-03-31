@@ -1,537 +1,437 @@
-.root {
+/* ===========================================================
+   EditorScreen — NLE-style layout matching the design
+   Uses CSS variables from globals.css
+   =========================================================== */
+
+/* ---- Root Layout ---- */
+.editorRoot {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background: var(--bg-base);
-  color: var(--text-primary);
+  height: calc(100vh - 64px);
   overflow: hidden;
 }
 
-/* Top bar */
-.topBar {
+/* ---- Top Section: Video + Media Bin ---- */
+.topSection {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--space-6);
-  height: 48px;
-  border-bottom: 1px solid var(--border-subtle);
-  flex-shrink: 0;
-  background: var(--bg-surface);
-}
-
-.logoSmall {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-  background: var(--gradient-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.logoIcon {
-  color: var(--accent);
-  -webkit-text-fill-color: unset;
-}
-
-.topBarTitle {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-secondary);
-}
-
-.topBarActions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.exportBtn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  background: var(--gradient-accent);
-  border: none;
-  border-radius: var(--radius-full);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--font-sans);
-  cursor: pointer;
-  transition: opacity var(--transition-fast);
-}
-
-.exportBtn:hover {
-  opacity: 0.88;
-}
-
-/* Body layout */
-.body {
   flex: 1;
-  display: flex;
   overflow: hidden;
+  padding: var(--space-6);
+  gap: var(--space-6);
+  min-height: 0;
 }
 
-/* Preview panel */
-.previewPanel {
+/* ---- Video Preview Player ---- */
+.videoSection {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  border-right: 1px solid var(--border-subtle);
+  gap: var(--space-4);
+  min-width: 0;
 }
 
-.centerStage {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-4);
-  gap: var(--space-3);
+.videoContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-2xl);
   overflow: hidden;
+  box-shadow: var(--shadow-lg);
 }
 
 .videoPlaceholder {
-  flex: 1;
-  background: #000;
-  border-radius: var(--radius-lg);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: 1px solid var(--border-subtle);
-  min-height: 200px;
-}
-
-/* Subtle scanline effect for cinematic feel */
-.videoPlaceholder::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(255,255,255,0.01) 0px,
-    rgba(255,255,255,0.01) 1px,
-    transparent 1px,
-    transparent 4px
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    #0a1628 0%,
+    #1a0a2e 40%,
+    #0d1a1a 70%,
+    #0a1628 100%
   );
-  pointer-events: none;
+  opacity: 0.8;
 }
 
-.videoOverlay {
+/* Controls overlay — gradient from bottom, visible on hover */
+.videoControls {
   position: absolute;
   inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6) 0%,
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 300ms ease;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at center, rgba(124, 92, 246, 0.08) 0%, transparent 70%);
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-6);
 }
 
-.playButton {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: rgba(124, 92, 246, 0.15);
-  border: 2px solid var(--accent-border);
+.videoContainer:hover .videoControls {
+  opacity: 1;
+}
+
+.controlsRow {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--accent);
+  justify-content: space-between;
+}
+
+.controlsLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.controlsRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.controlIcon {
+  color: var(--on-surface);
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: transform var(--transition-fast);
 }
 
-.playButton:hover {
-  background: var(--accent-muted);
-  box-shadow: var(--shadow-glow);
-  transform: scale(1.05);
-}
-
-.videoLabel {
-  position: absolute;
-  bottom: var(--space-3);
-  right: var(--space-3);
-  font-size: 11px;
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-}
-
-/* Playback controls */
-.controls {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  justify-content: center;
-}
-
-.controlBtn {
-  background: none;
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  font-family: var(--font-sans);
-}
-
-.controlBtn:hover {
-  color: var(--text-primary);
-  border-color: var(--border-strong);
-  background: var(--bg-hover);
-}
-
-.playBtn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--accent-muted);
-  border-color: var(--accent-border);
-  color: var(--accent);
-}
-
-.playBtn:hover {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
+.controlIcon:hover {
+  transform: scale(1.1);
 }
 
 .timecode {
   font-size: 12px;
   font-family: var(--font-mono);
-  color: var(--text-secondary);
-  margin: 0 var(--space-3);
+  color: var(--on-surface);
 }
 
-/* Scrubber */
-.scrubberWrap {
-  padding: 0 var(--space-2);
-}
-
-.scrubber {
-  width: 100%;
-  appearance: none;
-  height: 4px;
-  border-radius: var(--radius-full);
-  background: var(--bg-elevated);
-  outline: none;
-  cursor: pointer;
-  accent-color: var(--accent);
-}
-
-/* AI Prompt bar */
-.promptBar {
-  border-top: 1px solid var(--border-subtle);
-  background: var(--bg-surface);
+/* ---- Media Bin ---- */
+.mediaBin {
+  width: 320px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  height: 220px;
-  flex-shrink: 0;
+  gap: var(--space-4);
 }
 
-.promptHeader {
+.mediaBinHeader {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--border-subtle);
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
 }
 
-.promptIcon {
-  color: var(--accent);
+.mediaBinTitle {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--on-surface-variant);
 }
 
-.promptHeaderText {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.filterIcon {
+  font-size: 18px;
+  color: var(--on-surface-variant);
+  cursor: pointer;
 }
 
-.chatMessages {
+.mediaBinScroll {
   flex: 1;
   overflow-y: auto;
-  padding: var(--space-3) var(--space-4);
+  padding-right: var(--space-2);
+}
+
+.mediaBinGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+/* Media Card */
+.mediaCard {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--surface-container);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow var(--transition-base);
+}
+
+.mediaCard:hover {
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+.mediaCardWide {
+  grid-column: span 2;
+  aspect-ratio: 16 / 9;
+}
+
+.mediaCardBg {
+  width: 100%;
+  height: 100%;
+}
+
+.mediaDuration {
+  position: absolute;
+  bottom: var(--space-1);
+  right: var(--space-1);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1px var(--space-1);
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  color: var(--on-surface);
+}
+
+.mediaCardWide .mediaDuration {
+  bottom: var(--space-2);
+  right: var(--space-2);
+  padding: 2px var(--space-2);
+  font-size: 12px;
+}
+
+/* Import card */
+.importCard {
+  aspect-ratio: 1;
+  background: var(--surface-container);
+  border-radius: var(--radius-xl);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-}
-
-.chatBubble {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-2);
-  font-size: 13px;
-  line-height: 1.5;
-  max-width: 90%;
-}
-
-.chatAi {
-  color: var(--text-secondary);
-  align-self: flex-start;
-}
-
-.chatUser {
-  align-self: flex-end;
-  flex-direction: row-reverse;
-  background: var(--accent-muted);
-  border: 1px solid var(--accent-border);
-  border-radius: var(--radius-lg) var(--radius-sm) var(--radius-lg) var(--radius-lg);
-  padding: var(--space-2) var(--space-3);
-  color: var(--text-primary);
-}
-
-.chatAiIcon {
-  color: var(--accent);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.chatForm {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4) var(--space-3);
-}
-
-.chatInput {
-  flex: 1;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-full);
-  color: var(--text-primary);
-  font-size: 13px;
-  font-family: var(--font-sans);
-  padding: var(--space-2) var(--space-4);
-  outline: none;
-  transition: border-color var(--transition-fast);
-}
-
-.chatInput::placeholder {
-  color: var(--text-tertiary);
-}
-
-.chatInput:focus {
-  border-color: var(--accent-border);
-}
-
-.chatSendBtn {
-  width: 32px;
-  height: 32px;
-  background: var(--gradient-accent);
-  border: none;
-  border-radius: 50%;
-  color: #fff;
-  display: flex;
   align-items: center;
   justify-content: center;
+  border: 2px dashed rgba(72, 72, 71, 0.3);
   cursor: pointer;
-  flex-shrink: 0;
-  transition: opacity var(--transition-fast);
+  transition: border-color var(--transition-base);
 }
 
-.chatSendBtn:hover {
-  opacity: 0.85;
+.importCard:hover {
+  border-color: rgba(182, 160, 255, 0.5);
 }
 
-/* Timeline panel */
-.timelinePanel {
-  width: 420px;
+.importIcon {
+  color: var(--on-surface-variant);
+  font-size: 24px;
+}
+
+.importLabel {
+  font-size: 10px;
+  color: var(--on-surface-variant);
+  margin-top: var(--space-1);
+}
+
+/* ---- Smart Timeline ---- */
+.timeline {
+  height: 256px;
   flex-shrink: 0;
+  background: var(--surface-container-low);
+  padding: var(--space-6);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  background: var(--bg-surface);
+  gap: var(--space-4);
   position: relative;
-}
-
-.timelinePanelCollapsed {
-  width: 220px;
 }
 
 .timelineHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--border-subtle);
-  flex-shrink: 0;
 }
 
-.timelineTitle {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.timelineHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
 }
 
-.timelineHeaderActions {
+.timelineLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--primary);
+}
+
+.timelineLabelIcon {
+  color: var(--primary);
+}
+
+.timelineLabelText {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.timelineTools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.toolIcon {
+  font-size: 20px;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.toolIcon:hover {
+  color: var(--on-surface);
+}
+
+.timelineZoom {
   display: flex;
   align-items: center;
   gap: var(--space-3);
 }
 
-.clipCount {
-  font-size: 12px;
-  font-family: var(--font-mono);
-  color: var(--text-tertiary);
+.zoomIcon {
+  color: var(--on-surface-variant);
+  font-size: 20px;
 }
 
-.toggleTimeline {
-  background: none;
-  border: none;
-  color: var(--text-tertiary);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: color var(--transition-fast);
-}
-
-.toggleTimeline:hover {
-  color: var(--text-primary);
-}
-
-/* Ruler */
-.ruler {
-  height: 24px;
-  background: var(--bg-elevated);
-  position: relative;
-  border-bottom: 1px solid var(--border-subtle);
-  flex-shrink: 0;
-  margin: 0 var(--space-4);
+.zoomTrack {
+  width: 128px;
+  height: 4px;
+  background: var(--surface-container-highest);
+  border-radius: var(--radius-full);
   overflow: hidden;
 }
 
-.tick {
-  position: absolute;
-  top: 0;
+.zoomFill {
+  width: 50%;
   height: 100%;
-  display: flex;
-  align-items: flex-end;
-  padding-bottom: 2px;
+  background: var(--primary);
+  border-radius: var(--radius-full);
 }
 
-.tick::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 1px;
-  height: 8px;
-  background: var(--border-strong);
-}
-
-.tickLabel {
-  font-size: 10px;
-  font-family: var(--font-mono);
-  color: var(--text-tertiary);
-  padding-left: 3px;
-}
-
-/* Timeline track */
-.timelineTrack {
+/* ---- Timeline Tracks ---- */
+.timelineTracks {
   flex: 1;
   overflow-x: auto;
   overflow-y: hidden;
-  margin: var(--space-3) var(--space-4);
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  height: 60px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
 }
 
-.clip {
-  height: 52px;
+/* Playhead */
+.playhead {
+  position: absolute;
+  left: 25%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--secondary);
+  box-shadow: 0 0 10px rgba(0, 227, 253, 0.5);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.playheadDot {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 10px;
+  height: 10px;
+  background: var(--secondary);
+  border-radius: var(--radius-full);
+}
+
+/* Track 1: Video */
+.videoTrack {
+  display: flex;
+  gap: 4px;
+  height: 64px;
+  min-width: max-content;
+}
+
+.trackClip {
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--space-2);
-  cursor: pointer;
-  position: relative;
-  transition: filter var(--transition-fast), transform var(--transition-fast);
-  min-width: 40px;
+  padding: 0 var(--space-3);
+  cursor: grab;
   flex-shrink: 0;
-  opacity: 0.85;
-  user-select: none;
 }
 
-.clip:hover {
-  opacity: 1;
-  filter: brightness(1.15);
+.trackClip:active {
+  cursor: grabbing;
 }
 
-.clipSelected {
-  opacity: 1;
-  outline: 2px solid #fff;
-  outline-offset: 2px;
-  transform: scaleY(1.06);
-  filter: brightness(1.2);
+.trackClipSecondary {
+  background: rgba(0, 104, 117, 0.4);
+  border: 1px solid rgba(0, 227, 253, 0.2);
+}
+
+.trackClipPrimary {
+  background: rgba(169, 143, 255, 0.4);
+  border: 1px solid rgba(182, 160, 255, 0.2);
+}
+
+.trackClipTertiary {
+  background: rgba(251, 129, 174, 0.4);
+  border: 1px solid rgba(255, 150, 187, 0.2);
+}
+
+.clipIcon {
+  font-size: 18px;
+  margin-right: var(--space-2);
+}
+
+.clipIconSecondary {
+  color: var(--secondary);
+}
+
+.clipIconPrimary {
+  color: var(--primary);
+}
+
+.clipIconTertiary {
+  color: var(--tertiary);
 }
 
 .clipLabel {
-  font-size: 11px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.9);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--on-surface);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.clipDuration {
-  font-size: 10px;
-  font-family: var(--font-mono);
-  color: rgba(255,255,255,0.6);
-  flex-shrink: 0;
-  margin-left: var(--space-1);
-}
-
-.clipActions {
-  position: absolute;
-  top: -28px;
-  left: 50%;
-  transform: translateX(-50%);
+/* Track 2: Audio */
+.audioTrack {
   display: flex;
   gap: 4px;
-  background: var(--bg-overlay);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-  padding: 4px;
+  height: 32px;
+  min-width: max-content;
 }
 
-.clipActionBtn {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  padding: 2px;
-  border-radius: var(--radius-sm);
+.audioClip {
+  width: 500px;
+  background: rgba(38, 38, 38, 0.6);
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
-  transition: color var(--transition-fast);
+  padding: 0 var(--space-3);
+  border: 1px solid rgba(72, 72, 71, 0.1);
+  overflow: hidden;
 }
 
-.clipActionBtn:hover {
-  color: var(--text-primary);
+.waveform {
+  width: 100%;
+  height: 16px;
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
 }
 
-/* Playhead */
-.playheadLine {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--accent);
-  pointer-events: none;
-  transform: translateX(-1px);
-  z-index: 10;
+.waveBar {
+  width: 4px;
+  flex-shrink: 0;
+  background: rgba(173, 170, 170, 0.3);
+  border-radius: 1px;
 }
