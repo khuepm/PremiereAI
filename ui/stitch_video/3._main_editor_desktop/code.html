@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#000000",
+                        "tertiary-dim": "#ee77a3",
+                        "on-primary-container": "#280072",
+                        "on-primary-fixed-variant": "#32008a",
+                        "surface-tint": "#b6a0ff",
+                        "outline": "#767575",
+                        "primary-dim": "#7e51ff",
+                        "surface-container-low": "#131313",
+                        "outline-variant": "#484847",
+                        "tertiary-container": "#fb81ae",
+                        "on-tertiary-container": "#59002e",
+                        "on-secondary-container": "#e8fbff",
+                        "tertiary-fixed": "#ff8db6",
+                        "on-primary": "#340090",
+                        "on-primary-fixed": "#000000",
+                        "on-error": "#490013",
+                        "surface-container-high": "#20201f",
+                        "surface-container": "#1a1a1a",
+                        "on-surface": "#ffffff",
+                        "inverse-primary": "#6834eb",
+                        "error": "#ff6e84",
+                        "on-secondary-fixed-variant": "#005964",
+                        "primary-container": "#a98fff",
+                        "surface-dim": "#0e0e0e",
+                        "on-tertiary-fixed-variant": "#70103e",
+                        "on-surface-variant": "#adaaaa",
+                        "error-dim": "#d73357",
+                        "surface-container-highest": "#262626",
+                        "background": "#0e0e0e",
+                        "surface-variant": "#262626",
+                        "on-secondary-fixed": "#003a42",
+                        "secondary-fixed-dim": "#00d7f0",
+                        "primary": "#b6a0ff",
+                        "surface-bright": "#2c2c2c",
+                        "primary-fixed": "#a98fff",
+                        "on-secondary": "#004d57",
+                        "secondary-container": "#006875",
+                        "primary-fixed-dim": "#9c7eff",
+                        "secondary-fixed": "#26e6ff",
+                        "on-tertiary-fixed": "#37001a",
+                        "secondary": "#00e3fd",
+                        "tertiary": "#ff96bb",
+                        "secondary-dim": "#00d4ec",
+                        "surface": "#0e0e0e",
+                        "error-container": "#a70138",
+                        "on-tertiary": "#690939",
+                        "on-error-container": "#ffb2b9",
+                        "inverse-surface": "#fcf9f8",
+                        "tertiary-fixed-dim": "#f57ca9",
+                        "on-background": "#ffffff",
+                        "inverse-on-surface": "#565555"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .surface-tonal-shift {
+            background: linear-gradient(180deg, #131313 0%, #0e0e0e 100%);
+        }
+        .glass-panel {
+            background: rgba(38, 38, 38, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #b6a0ff 0%, #7e51ff 100%);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0e0e0e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #484847;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30">
+<!-- Top Navigation Anchor -->
+<header class="flex justify-between items-center px-6 w-full sticky top-0 z-50 h-16 bg-[#0e0e0e] border-none">
+<div class="flex items-center gap-8">
+<span class="text-xl font-extrabold tracking-tighter text-[#b6a0ff] font-headline">PremiereAI</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-['Manrope'] font-bold text-lg tracking-tight text-[#b6a0ff]" href="#">Timeline</a>
+<a class="font-['Manrope'] font-bold text-lg tracking-tight text-[#adaaaa] hover:text-white transition-colors" href="#">Assets</a>
+<a class="font-['Manrope'] font-bold text-lg tracking-tight text-[#adaaaa] hover:text-white transition-colors" href="#">Exports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 hover:bg-[#262626] rounded-lg transition-all duration-300 cursor-pointer active:scale-95 text-[#adaaaa] hover:text-white">
+<span class="material-symbols-outlined" data-icon="cloud_done">cloud_done</span>
+<span class="text-sm font-medium">Saved</span>
+</button>
+<button class="primary-gradient text-on-primary font-bold px-6 py-2 rounded-full transition-all hover:opacity-90 active:scale-95">
+                Export
+            </button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</header>
+<div class="flex h-[calc(100vh-4rem)] overflow-hidden">
+<!-- Side Navigation (Left Anchor) -->
+<aside class="flex flex-col h-full border-r border-[#484847]/15 bg-[#0e0e0e] w-64 fixed left-0 top-16 z-40">
+<div class="p-6">
+<div class="mb-6">
+<h2 class="text-white font-headline font-bold text-lg">Project Alpha</h2>
+<p class="text-on-surface-variant text-xs">Draft saved 2m ago</p>
+</div>
+<button class="w-full flex items-center justify-center gap-2 primary-gradient text-on-primary py-3 rounded-xl font-bold mb-8 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    New AI Draft
+                </button>
+<nav class="space-y-1">
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-white border-r-2 border-[#b6a0ff] bg-gradient-to-r from-[#b6a0ff]/10 to-transparent font-['Inter'] text-sm font-medium">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+<span>Media</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200 font-['Inter'] text-sm font-medium">
+<span class="material-symbols-outlined" data-icon="view_timeline">view_timeline</span>
+<span>Timeline</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200 font-['Inter'] text-sm font-medium">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span>Assets</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200 font-['Inter'] text-sm font-medium">
+<span class="material-symbols-outlined" data-icon="file_upload">file_upload</span>
+<span>Exports</span>
+</div>
+</nav>
+</div>
+<div class="mt-auto p-6 space-y-1">
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200 font-['Inter'] text-sm font-medium">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200 font-['Inter'] text-sm font-medium">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span>Help</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex flex-col flex-grow relative">
+<!-- Center Stage: Video Player & Media Bin Container -->
+<div class="flex flex-grow overflow-hidden p-6 gap-6">
+<!-- Large Video Preview Player -->
+<div class="flex-grow flex flex-col gap-4">
+<div class="relative w-full aspect-video bg-surface-container-lowest rounded-2xl overflow-hidden shadow-2xl group">
+<img alt="Cinematic landscape" class="w-full h-full object-cover opacity-80" data-alt="Cinematic aerial shot of a misty pine forest at sunrise with deep blue shadows and golden highlights on the tree peaks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdjFPIn3TH63EN06E6ryjL0kSfZodzxlLaQUoCL2X5W6hvcLBSNE37osI6V1CbYWPemYfAEjIrbfiCwNwWb_M34iRn67Z3-s4eycv8pYp0D-vQw1kNebaC76_YgAwanafqaxwZeAZJRox6s_XW2lIXGSvKIsw2Y0EDE1seWwAHQz3SRCNx0mpq9R0fx9NlNA29ZD-h7Ipgug6kXRbbV4eEg8UHxX3cAOlcPvZfp7_ORdtjmuyAdZxio8Y8eUdGC5Ltb3m2ou0ziG4i"/>
+<!-- Video Controls Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-white cursor-pointer hover:scale-110 transition-transform" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span class="material-symbols-outlined text-white cursor-pointer" data-icon="skip_next">skip_next</span>
+<span class="text-white text-xs font-mono">00:42 / 02:15</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-white cursor-pointer" data-icon="fullscreen">fullscreen</span>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Prompt Bar (Floating Positioned) -->
+<div class="glass-panel rounded-full px-6 py-4 flex items-center gap-4 border border-outline-variant/10 shadow-2xl">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-on-surface-variant flex-grow font-medium" placeholder="Ask AI to 'remove the background' or 'add cinematic lighting'..." type="text"/>
+<button class="bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-bold transition-all">
+                            Generate
+                        </button>
+</div>
+</div>
+<!-- Right Side: Media Bin -->
+<div class="w-80 flex flex-col gap-4">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-on-surface-variant font-headline font-bold text-sm tracking-widest">MEDIA BIN</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-sm cursor-pointer" data-icon="filter_list">filter_list</span>
+</div>
+<div class="flex-grow overflow-y-auto pr-2 space-y-4">
+<!-- Bento Grid Media Cards -->
+<div class="grid grid-cols-2 gap-3">
+<div class="aspect-square bg-surface-container rounded-xl overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary transition-all relative group">
+<img alt="Cityscape clip" class="w-full h-full object-cover" data-alt="High angle view of Tokyo neon street signs at night with motion blur from passing cars and vibrant colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCQADHDkxnQM660ftSuoJ96FyUedCHBRtYvxErfmu125o1LXojRgX82c9LPwH_EGQSWyLETCFVZYnurSQPHXUOa0Mixaa8J__oKcNd0xWUyAwwJOmgI4pl8Sbq6u9nzoiXpjc-vYBInq9oJOP0bhoKHVRT1bMe6scda1EOssYdmzKjt5GMGjtond_Q0gdOhRVpGOmWLh2FTpKK4RN1jHaZ65mwW5Liw0PMMjljt8f9o1duQdfufI7v6p2VoSbXpu7pN_6wK22gVQN5"/>
+<div class="absolute bottom-1 right-1 bg-black/50 px-1 rounded text-[10px] text-white">0:12</div>
+</div>
+<div class="aspect-square bg-surface-container rounded-xl overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary transition-all relative group">
+<img alt="Interview clip" class="w-full h-full object-cover" data-alt="Close up portrait of a person speaking with soft bokeh background and warm cinematic studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8R2dqw7aklq64s7FXrXOAi0zfA1PjWuaLg920TpK2SXUnMganzgwdA40NLBSWTYQl9qbqkBI08imqnTiEf53fRyN8g-MIYyLW77srUhtVephesfJbYd-tPNx4nrseOVu8jCoEsRwLSBN7uwrLKJzVY1zTu103Lsjw6XkToDLsV44mlINcqKeS3dvSDmPWTQWsrU1vb4hzOjK-OPmrqS41fxG_pIKcoDM6BjcrBjNbd49gzGcYf0rr_m6jE7i1dACj8-bbnZPiRchJ"/>
+<div class="absolute bottom-1 right-1 bg-black/50 px-1 rounded text-[10px] text-white">1:04</div>
+</div>
+<div class="col-span-2 aspect-[16/9] bg-surface-container rounded-xl overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary transition-all relative group">
+<img alt="Nature clip" class="w-full h-full object-cover" data-alt="Epic mountain range with snow-capped peaks and a crystal clear lake in the foreground under a bright blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCduVkaay78S5rMa0ReHTom2550DOLZRMa6FjTS0jVRUJMEnOFKEZo8sFlbE9FD8NwSOE_giBcU8Ebpram-yLcXsLz9lqZ_l4jdxbLeJP2TtY42k9rIe35mu6eM27BjV9BrtXvru9T1WEYiadJlIBr-one0acBShLOtpp_ohO-QLhb8RZ2SZ6hvksQbXaQPCF76lAjqDNDozxuvO7Ia1P5jGiZUG5Q9qnR0NhMLeVRa9w_fX_G76hF9T5DQiZ35G0OthapMdgVIg03o"/>
+<div class="absolute bottom-2 right-2 bg-black/50 px-2 rounded text-xs text-white">2:45</div>
+</div>
+<div class="aspect-square bg-surface-container rounded-xl overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary transition-all relative group">
+<img alt="Abstract clip" class="w-full h-full object-cover" data-alt="Macro shot of water droplets on a glass surface reflecting colorful neon lights in a dark room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAkMdAJjYjHJIeza6_mdXwAbe-ESQR0MjWaur3OzHG1gOWY-c3uumB6mml1gQ5sDcs8r9z1WPuqVEfIAekNHtYikb7rzPiw1F9ZgQUBMzAFfcAvQfjNBdXOYIkD9n2zqqQxatoFqbX78OO2TAIYML5JaqCbtcbPJHFTeqp51No_AhPCAW9RH6PQVgKpGfoIfTO9j0bdjshZM0rzUdQqvAIpeUlpca_Izpb3uZIsskjWPQ9AahjDxvoGVLXMqL9ydrzW4y1iyhwhJqT"/>
+<div class="absolute bottom-1 right-1 bg-black/50 px-1 rounded text-[10px] text-white">0:08</div>
+</div>
+<div class="aspect-square bg-surface-container rounded-xl flex flex-col items-center justify-center border-2 border-dashed border-outline-variant/30 hover:border-primary/50 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="add_to_photos">add_to_photos</span>
+<span class="text-[10px] text-on-surface-variant mt-1">Import</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom: Smart Timeline -->
+<section class="h-64 bg-surface-container-low p-6 flex flex-col gap-4 relative">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+<span class="text-sm font-bold">Smart Timeline</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg cursor-pointer" data-icon="undo">undo</span>
+<span class="material-symbols-outlined text-lg cursor-pointer" data-icon="redo">redo</span>
+<span class="material-symbols-outlined text-lg cursor-pointer" data-icon="content_cut">content_cut</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="zoom_out">zoom_out</span>
+<div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-1/2 h-full bg-primary rounded-full"></div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="zoom_in">zoom_in</span>
+</div>
+</div>
+<!-- Timeline Tracks -->
+<div class="flex-grow overflow-x-auto overflow-y-hidden relative flex flex-col gap-2 py-2">
+<!-- Playhead -->
+<div class="absolute left-1/4 top-0 bottom-0 w-0.5 bg-secondary shadow-[0_0_10px_rgba(0,227,253,0.5)] z-10 pointer-events-none">
+<div class="absolute -top-1 -left-1 w-2.5 h-2.5 bg-secondary rounded-full"></div>
+</div>
+<!-- Track 1: Video -->
+<div class="flex gap-1 h-16 min-w-max">
+<div class="w-48 bg-secondary-container/40 rounded-lg flex items-center px-3 border border-secondary/20 cursor-grab active:cursor-grabbing">
+<span class="material-symbols-outlined text-secondary text-sm mr-2" data-icon="face">face</span>
+<span class="text-xs font-medium text-white truncate">Face Detection Clip</span>
+</div>
+<div class="w-80 bg-primary-container/40 rounded-lg flex items-center px-3 border border-primary/20 cursor-grab active:cursor-grabbing">
+<span class="material-symbols-outlined text-primary text-sm mr-2" data-icon="landscape">landscape</span>
+<span class="text-xs font-medium text-white truncate">Main Aerial 01</span>
+</div>
+<div class="w-32 bg-tertiary-container/40 rounded-lg flex items-center px-3 border border-tertiary/20 cursor-grab active:cursor-grabbing">
+<span class="material-symbols-outlined text-tertiary text-sm mr-2" data-icon="auto_fix">auto_fix</span>
+<span class="text-xs font-medium text-white truncate">AI Transition</span>
+</div>
+<div class="w-64 bg-secondary-container/40 rounded-lg flex items-center px-3 border border-secondary/20 cursor-grab active:cursor-grabbing">
+<span class="material-symbols-outlined text-secondary text-sm mr-2" data-icon="movie">movie</span>
+<span class="text-xs font-medium text-white truncate">Close-up Shot</span>
+</div>
+</div>
+<!-- Track 2: Audio -->
+<div class="flex gap-1 h-8 min-w-max">
+<div class="w-[500px] bg-surface-container-highest/60 rounded-lg flex items-center px-3 border border-outline-variant/10 overflow-hidden">
+<div class="w-full h-4 flex items-end gap-[1px]">
+<div class="w-1 h-1/2 bg-on-surface-variant/30"></div>
+<div class="w-1 h-3/4 bg-on-surface-variant/30"></div>
+<div class="w-1 h-1/4 bg-on-surface-variant/30"></div>
+<div class="w-1 h-full bg-on-surface-variant/30"></div>
+<div class="w-1 h-1/2 bg-on-surface-variant/30"></div>
+<div class="w-1 h-3/4 bg-on-surface-variant/30"></div>
+<div class="w-1 h-full bg-on-surface-variant/30"></div>
+<div class="w-1 h-2/3 bg-on-surface-variant/30"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

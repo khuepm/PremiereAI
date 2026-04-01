@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PremiereAI - AI Engine Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface": "#ffffff",
+              "surface-container-low": "#131313",
+              "on-secondary": "#004d57",
+              "inverse-surface": "#fcf9f8",
+              "error-dim": "#d73357",
+              "tertiary": "#ff96bb",
+              "primary-container": "#a98fff",
+              "surface-bright": "#2c2c2c",
+              "secondary-container": "#006875",
+              "on-secondary-fixed-variant": "#005964",
+              "outline": "#767575",
+              "surface-container-highest": "#262626",
+              "on-secondary-container": "#e8fbff",
+              "surface-variant": "#262626",
+              "primary-fixed-dim": "#9c7eff",
+              "on-tertiary-fixed": "#37001a",
+              "tertiary-fixed": "#ff8db6",
+              "surface": "#0e0e0e",
+              "on-primary-fixed": "#000000",
+              "error": "#ff6e84",
+              "on-primary": "#340090",
+              "surface-container-lowest": "#000000",
+              "surface-container-high": "#20201f",
+              "on-tertiary": "#690939",
+              "surface-tint": "#b6a0ff",
+              "on-error-container": "#ffb2b9",
+              "on-surface-variant": "#adaaaa",
+              "tertiary-dim": "#ee77a3",
+              "inverse-primary": "#6834eb",
+              "secondary-fixed-dim": "#00d7f0",
+              "on-background": "#ffffff",
+              "surface-container": "#1a1a1a",
+              "on-tertiary-container": "#59002e",
+              "tertiary-fixed-dim": "#f57ca9",
+              "primary-fixed": "#a98fff",
+              "surface-dim": "#0e0e0e",
+              "outline-variant": "#484847",
+              "secondary-fixed": "#26e6ff",
+              "on-tertiary-fixed-variant": "#70103e",
+              "secondary-dim": "#00d4ec",
+              "background": "#0e0e0e",
+              "primary-dim": "#7e51ff",
+              "on-secondary-fixed": "#003a42",
+              "on-error": "#490013",
+              "on-primary-container": "#280072",
+              "on-primary-fixed-variant": "#32008a",
+              "secondary": "#00e3fd",
+              "tertiary-container": "#fb81ae",
+              "error-container": "#a70138",
+              "primary": "#b6a0ff",
+              "inverse-on-surface": "#565555"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(38, 38, 38, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        /* Custom track for the AI Creativity slider */
+        input[type='range'] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type='range']::-webkit-slider-runnable-track {
+            background: #262626;
+            height: 6px;
+            border-radius: 999px;
+        }
+        input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            background: #b6a0ff;
+            border-radius: 50%;
+            margin-top: -7px;
+            box-shadow: 0 0 10px rgba(182, 160, 255, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#0e0e0e]/80 backdrop-blur-xl bg-gradient-to-b from-[#131313] to-transparent">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined text-on-surface">arrow_back</span>
+</button>
+<h1 class="text-xl font-headline font-bold tracking-tight text-on-surface">AI Engine Settings</h1>
+</div>
+<button class="text-[#b6a0ff] font-headline font-bold tracking-tight hover:text-[#00e3fd] transition-colors">
+            Export
+        </button>
+</header>
+<main class="pt-24 px-6 space-y-8 max-w-md mx-auto">
+<!-- Section: AI Provider Card -->
+<section class="space-y-4">
+<h2 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant px-1">Active Provider</h2>
+<div class="surface-container-low rounded-xl p-5 space-y-6 border border-white/5 relative overflow-hidden">
+<!-- Subtle Gradient Background -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl rounded-full -mr-16 -mt-16"></div>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-dim flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-on-primary-fixed text-2xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div>
+<h3 class="text-lg font-headline font-extrabold">BoongAI</h3>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#00e3fd]"></span>
+<span class="text-xs font-medium text-secondary">Status: Connected</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1">user@domain.com</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="py-2.5 px-4 rounded-lg bg-surface-container-highest text-sm font-semibold hover:bg-surface-bright transition-colors text-on-surface border border-white/5">
+                        Manage Account
+                    </button>
+<button class="py-2.5 px-4 rounded-lg bg-error-container/20 text-error text-sm font-semibold hover:bg-error-container/30 transition-colors border border-error/20">
+                        Disconnect
+                    </button>
+</div>
+</div>
+</section>
+<!-- Section: Model Selection -->
+<section class="space-y-4">
+<h2 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant px-1">Default Model Selection</h2>
+<div class="space-y-3">
+<!-- Aura Turbo (Selected) -->
+<div class="relative group cursor-pointer">
+<div class="absolute -inset-0.5 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-xl blur opacity-40 group-hover:opacity-100 transition duration-300"></div>
+<div class="relative surface-container-highest rounded-xl p-4 flex items-center justify-between border border-primary/40">
+<div class="flex gap-4 items-center">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">speed</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline font-bold">Aura Turbo</h4>
+<span class="px-2 py-0.5 rounded-full bg-secondary/10 text-[10px] font-bold text-secondary border border-secondary/20">FAST</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-0.5">Optimized for rapid iterative generation.</p>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+</div>
+<!-- Aura Pro -->
+<div class="surface-container-low rounded-xl p-4 flex items-center justify-between border border-white/5 hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex gap-4 items-center">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center group-hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-tertiary transition-colors">auto_awesome</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline font-bold">Aura Pro</h4>
+<span class="px-2 py-0.5 rounded-full bg-tertiary/10 text-[10px] font-bold text-tertiary border border-tertiary/20 uppercase">High Quality</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-0.5">Maximum fidelity for cinematic output.</p>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full border border-white/10"></div>
+</div>
+</div>
+</section>
+<!-- Section: Advanced Settings Accordion -->
+<section class="space-y-4">
+<div class="surface-container-low rounded-xl overflow-hidden border border-white/5">
+<button class="w-full px-5 py-4 flex items-center justify-between hover:bg-white/5 transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">tune</span>
+<span class="font-headline font-bold">Advanced Settings</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+</button>
+<div class="px-5 pb-6 pt-2 space-y-6">
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<label class="text-sm font-medium text-on-surface">AI Creativity</label>
+<span class="text-[10px] font-bold px-2 py-0.5 bg-primary/20 text-primary rounded uppercase tracking-wider">Balanced</span>
+</div>
+<div class="space-y-2">
+<input class="w-full accent-primary" max="100" min="0" type="range" value="50"/>
+<div class="flex justify-between text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">
+<span>Strict</span>
+<span>Creative</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between py-2">
+<div class="space-y-0.5">
+<p class="text-sm font-medium">Deep Analysis</p>
+<p class="text-xs text-on-surface-variant">Analyze frame-by-frame for consistency</p>
+</div>
+<div class="w-12 h-6 bg-primary rounded-full p-1 flex justify-end items-center">
+<div class="w-4 h-4 bg-on-primary rounded-full shadow-sm"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-8 pb-8">
+<div class="w-full flex justify-around items-center bg-[#262626]/60 backdrop-blur-[24px] rounded-t-[1.5rem] py-3 border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.15)]">
+<a class="flex flex-col items-center justify-center text-[#adaaaa] p-3 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="movie_edit">movie_edit</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#adaaaa] p-3 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#adaaaa] p-3 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#b6a0ff] to-[#7e51ff] text-white rounded-xl p-3 Active: scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+</a>
+</div>
+</nav>
+</body></html>

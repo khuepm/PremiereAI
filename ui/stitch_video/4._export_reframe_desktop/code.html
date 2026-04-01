@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Export &amp; Reframe - PremiereAI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#000000",
+                        "tertiary-dim": "#ee77a3",
+                        "on-primary-container": "#280072",
+                        "on-primary-fixed-variant": "#32008a",
+                        "surface-tint": "#b6a0ff",
+                        "outline": "#767575",
+                        "primary-dim": "#7e51ff",
+                        "surface-container-low": "#131313",
+                        "outline-variant": "#484847",
+                        "tertiary-container": "#fb81ae",
+                        "on-tertiary-container": "#59002e",
+                        "on-secondary-container": "#e8fbff",
+                        "tertiary-fixed": "#ff8db6",
+                        "on-primary": "#340090",
+                        "on-primary-fixed": "#000000",
+                        "on-error": "#490013",
+                        "surface-container-high": "#20201f",
+                        "surface-container": "#1a1a1a",
+                        "on-surface": "#ffffff",
+                        "inverse-primary": "#6834eb",
+                        "error": "#ff6e84",
+                        "on-secondary-fixed-variant": "#005964",
+                        "primary-container": "#a98fff",
+                        "surface-dim": "#0e0e0e",
+                        "on-tertiary-fixed-variant": "#70103e",
+                        "on-surface-variant": "#adaaaa",
+                        "error-dim": "#d73357",
+                        "surface-container-highest": "#262626",
+                        "background": "#0e0e0e",
+                        "surface-variant": "#262626",
+                        "on-secondary-fixed": "#003a42",
+                        "secondary-fixed-dim": "#00d7f0",
+                        "primary": "#b6a0ff",
+                        "surface-bright": "#2c2c2c",
+                        "primary-fixed": "#a98fff",
+                        "on-secondary": "#004d57",
+                        "secondary-container": "#006875",
+                        "primary-fixed-dim": "#9c7eff",
+                        "secondary-fixed": "#26e6ff",
+                        "on-tertiary-fixed": "#37001a",
+                        "secondary": "#00e3fd",
+                        "tertiary": "#ff96bb",
+                        "secondary-dim": "#00d4ec",
+                        "surface": "#0e0e0e",
+                        "error-container": "#a70138",
+                        "on-tertiary": "#690939",
+                        "on-error-container": "#ffb2b9",
+                        "inverse-surface": "#fcf9f8",
+                        "tertiary-fixed-dim": "#f57ca9",
+                        "on-background": "#ffffff",
+                        "inverse-on-surface": "#565555"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass {
+            background: rgba(38, 38, 38, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .surface-tonal-shift {
+            background: linear-gradient(180deg, #131313 0%, #0e0e0e 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-6 w-full sticky top-0 z-50 h-16 bg-[#0e0e0e] border-none">
+<div class="flex items-center gap-8">
+<span class="text-xl font-extrabold tracking-tighter text-[#b6a0ff] font-headline">PremiereAI</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-[#adaaaa] hover:text-white transition-colors font-body text-sm font-medium" href="#">Media</a>
+<a class="text-[#adaaaa] hover:text-white transition-colors font-body text-sm font-medium" href="#">Timeline</a>
+<a class="text-[#adaaaa] hover:text-white transition-colors font-body text-sm font-medium" href="#">Assets</a>
+<a class="text-[#b6a0ff] font-bold font-body text-sm" href="#">Exports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-[#262626] rounded-lg transition-all duration-300 p-2 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">cloud_done</span>
+</button>
+<button class="hover:bg-[#262626] rounded-lg transition-all duration-300 p-2 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">account_circle</span>
+</button>
+<button class="bg-primary hover:bg-primary-dim text-on-primary font-bold px-4 py-1.5 rounded-lg transition-all duration-300 cursor-pointer active:scale-95 text-sm">
+                Export
+            </button>
+</div>
+</header>
+<div class="flex h-[calc(100vh-64px)]">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-full w-64 bg-[#0e0e0e] border-r border-[#484847]/15">
+<div class="p-6">
+<h2 class="text-white font-headline font-bold text-lg">Project Alpha</h2>
+<p class="text-on-surface-variant text-xs mt-1">Draft saved 2m ago</p>
+</div>
+<button class="mx-4 mb-6 bg-gradient-to-br from-primary to-primary-dim text-on-primary font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-primary/10 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="text-sm">New AI Draft</span>
+</button>
+<nav class="flex-1">
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200">
+<span class="material-symbols-outlined">video_library</span>
+<span class="font-medium text-sm">Media</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200">
+<span class="material-symbols-outlined">view_timeline</span>
+<span class="font-medium text-sm">Timeline</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="font-medium text-sm">Assets</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-white border-r-2 border-[#b6a0ff] bg-gradient-to-r from-[#b6a0ff]/10 to-transparent transition-all duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">file_upload</span>
+<span class="font-medium text-sm">Exports</span>
+</div>
+</nav>
+<div class="mt-auto pb-6 border-t border-outline-variant/10">
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium text-sm">Settings</span>
+</div>
+<div class="group flex items-center gap-3 px-4 py-3 cursor-pointer text-[#adaaaa] hover:text-white hover:bg-[#20201f] transition-all duration-200">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-medium text-sm">Help</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area (Asymmetric Side-by-Side) -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Left: Video Preview -->
+<section class="flex-1 bg-surface flex flex-col p-8 gap-6 overflow-y-auto">
+<div class="flex justify-between items-end">
+<div>
+<span class="text-primary text-xs font-bold tracking-widest uppercase mb-1 block">Preview</span>
+<h1 class="text-3xl font-headline font-extrabold">Final Master</h1>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface-container-high p-2 rounded-lg text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">fullscreen</span>
+</button>
+</div>
+</div>
+<div class="relative flex-1 min-h-[400px] rounded-2xl overflow-hidden bg-surface-container-lowest group">
+<img alt="Cinematic landscape video frame" class="w-full h-full object-cover opacity-80" data-alt="Cinematic wide shot of a misty pine forest at dawn with cool blue light and epic atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8UI0cToPbP5oH01xIyzXBjZv7SNvMLXAiXgqugjXei006VEWGVwSIByEezNovBFZfhmTNJY-pPIxoySxn5HsvNtQ9QT_P_U8l5DELIx9U9IdZMUcTWREHaWj6zv-X7wwwsUvqRcMaH8OZD9nG4WL4-_ge7LLmnoWO_nV06qTD5hkDnTlm6A227_2yCbYp-hte8Wq92CGLFdS1jG33EKCxYFpUsio2nVUrkReaMkiv7Gj7yIipc8XOYpqc22VClRBTuyME_FX_Hndn"/>
+<!-- Overlay Grid / Safe Zones -->
+<div class="absolute inset-0 border-[20px] border-black/20 pointer-events-none"></div>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-[30%] h-[80%] border border-dashed border-primary/40 rounded-xl flex flex-col items-center justify-center bg-primary/5">
+<span class="text-[10px] font-bold text-primary bg-surface/80 px-2 py-0.5 rounded-full backdrop-blur-sm -mt-4">AUTO-REFRAME ACTIVE</span>
+</div>
+</div>
+<!-- AI Caption Overlay -->
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 glass px-6 py-3 rounded-full border border-white/5">
+<p class="text-sm font-medium tracking-wide">"The silence of the mountains is deafening..."</p>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-4">
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant/5">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider mb-1">Duration</p>
+<p class="text-lg font-headline font-bold">00:45:12</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant/5">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider mb-1">Total Size</p>
+<p class="text-lg font-headline font-bold">142.4 MB</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant/5">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider mb-1">Codec</p>
+<p class="text-lg font-headline font-bold">ProRes 422</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant/5">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider mb-1">Status</p>
+<div class="flex items-center gap-2 text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<p class="text-lg font-headline font-bold">Ready</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right: Export Settings Panel -->
+<section class="w-[420px] bg-surface-container-low p-8 border-l border-outline-variant/10 flex flex-col gap-8 overflow-y-auto">
+<!-- Auto-Reframe Section -->
+<div>
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline font-bold text-lg">Auto-Reframe</h3>
+<span class="bg-primary/20 text-primary text-[10px] px-2 py-0.5 rounded-full font-bold">AI POWERED</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex flex-col items-center gap-3 p-4 rounded-2xl bg-surface-container-highest border-2 border-primary ring-4 ring-primary/10 transition-all">
+<span class="material-symbols-outlined text-primary text-3xl">smartphone</span>
+<div class="text-center">
+<p class="text-xs font-bold">TikTok / Reels</p>
+<p class="text-[10px] text-on-surface-variant">9:16 Portrait</p>
+</div>
+</button>
+<button class="flex flex-col items-center gap-3 p-4 rounded-2xl bg-surface-container hover:bg-surface-container-highest border border-outline-variant/10 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">laptop</span>
+<div class="text-center">
+<p class="text-xs font-bold">YouTube</p>
+<p class="text-[10px] text-on-surface-variant">16:9 Cinema</p>
+</div>
+</button>
+<button class="flex flex-col items-center gap-3 p-4 rounded-2xl bg-surface-container hover:bg-surface-container-highest border border-outline-variant/10 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">square</span>
+<div class="text-center">
+<p class="text-xs font-bold">Instagram Post</p>
+<p class="text-[10px] text-on-surface-variant">1:1 Square</p>
+</div>
+</button>
+<button class="flex flex-col items-center gap-3 p-4 rounded-2xl bg-surface-container hover:bg-surface-container-highest border border-outline-variant/10 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">aspect_ratio</span>
+<div class="text-center">
+<p class="text-xs font-bold">Custom</p>
+<p class="text-[10px] text-on-surface-variant">Free Aspect</p>
+</div>
+</button>
+</div>
+</div>
+<!-- Export Presets -->
+<div>
+<h3 class="font-headline font-bold text-lg mb-4">Export Settings</h3>
+<div class="space-y-4">
+<div class="space-y-2">
+<label class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Resolution</label>
+<div class="flex gap-2">
+<button class="flex-1 py-2 rounded-lg bg-surface-container-highest border border-outline-variant/20 text-xs font-medium">1080p</button>
+<button class="flex-1 py-2 rounded-lg bg-primary text-on-primary text-xs font-bold shadow-md shadow-primary/20">4K Ultra HD</button>
+<button class="flex-1 py-2 rounded-lg bg-surface-container-highest border border-outline-variant/20 text-xs font-medium">8K</button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-2">
+<div class="space-y-2">
+<label class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Frame Rate</label>
+<div class="bg-surface-container-highest rounded-lg px-4 py-2.5 flex items-center justify-between">
+<span class="text-sm font-medium">60 FPS</span>
+<span class="material-symbols-outlined text-sm">unfold_more</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Bitrate (VBR)</label>
+<div class="bg-surface-container-highest rounded-lg px-4 py-2.5 flex items-center justify-between">
+<span class="text-sm font-medium">32 Mbps</span>
+<span class="material-symbols-outlined text-sm">unfold_more</span>
+</div>
+</div>
+</div>
+<div class="pt-4 flex items-center gap-3">
+<div class="flex-1 h-px bg-outline-variant/10"></div>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase">Advanced</span>
+<div class="flex-1 h-px bg-outline-variant/10"></div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">high_quality</span>
+<span class="text-sm">Smart Sharpening</span>
+</div>
+<div class="w-10 h-5 bg-tertiary rounded-full relative">
+<div class="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">graphic_eq</span>
+<span class="text-sm">Normalize Audio</span>
+</div>
+<div class="w-10 h-5 bg-surface-variant rounded-full relative">
+<div class="absolute left-0.5 top-0.5 w-4 h-4 bg-on-surface-variant rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer CTA -->
+<div class="mt-auto space-y-4">
+<div class="bg-surface-container-highest/50 rounded-2xl p-4 border border-outline-variant/5">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs text-on-surface-variant">Storage Required</span>
+<span class="text-xs font-bold text-on-surface">1.2 GB Available</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="w-2/3 h-full bg-primary-dim rounded-full"></div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 py-4 bg-surface-container-highest hover:bg-surface-bright text-on-surface font-bold rounded-2xl transition-all border border-outline-variant/10 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">save</span>
+                            Preview
+                        </button>
+<button class="flex-[2] py-4 bg-gradient-to-br from-primary to-primary-dim text-on-primary font-extrabold rounded-2xl transition-all shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">file_upload</span>
+                            Export &amp; Share
+                        </button>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

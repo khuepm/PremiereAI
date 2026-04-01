@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PremiereAI - Preferences</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface": "#ffffff",
+              "surface-container-low": "#131313",
+              "on-secondary": "#004d57",
+              "inverse-surface": "#fcf9f8",
+              "error-dim": "#d73357",
+              "tertiary": "#ff96bb",
+              "primary-container": "#a98fff",
+              "surface-bright": "#2c2c2c",
+              "secondary-container": "#006875",
+              "on-secondary-fixed-variant": "#005964",
+              "outline": "#767575",
+              "surface-container-highest": "#262626",
+              "on-secondary-container": "#e8fbff",
+              "surface-variant": "#262626",
+              "primary-fixed-dim": "#9c7eff",
+              "on-tertiary-fixed": "#37001a",
+              "tertiary-fixed": "#ff8db6",
+              "surface": "#0e0e0e",
+              "on-primary-fixed": "#000000",
+              "error": "#ff6e84",
+              "on-primary": "#340090",
+              "surface-container-lowest": "#000000",
+              "surface-container-high": "#20201f",
+              "on-tertiary": "#690939",
+              "surface-tint": "#b6a0ff",
+              "on-error-container": "#ffb2b9",
+              "on-surface-variant": "#adaaaa",
+              "tertiary-dim": "#ee77a3",
+              "inverse-primary": "#6834eb",
+              "secondary-fixed-dim": "#00d7f0",
+              "on-background": "#ffffff",
+              "surface-container": "#1a1a1a",
+              "on-tertiary-container": "#59002e",
+              "tertiary-fixed-dim": "#f57ca9",
+              "primary-fixed": "#a98fff",
+              "surface-dim": "#0e0e0e",
+              "outline-variant": "#484847",
+              "secondary-fixed": "#26e6ff",
+              "on-tertiary-fixed-variant": "#70103e",
+              "secondary-dim": "#00d4ec",
+              "background": "#0e0e0e",
+              "primary-dim": "#7e51ff",
+              "on-secondary-fixed": "#003a42",
+              "on-error": "#490013",
+              "on-primary-container": "#280072",
+              "on-primary-fixed-variant": "#32008a",
+              "secondary": "#00e3fd",
+              "tertiary-container": "#fb81ae",
+              "error-container": "#a70138",
+              "primary": "#b6a0ff",
+              "inverse-on-surface": "#565555"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        background-color: #0e0e0e;
+        color: #ffffff;
+        font-family: 'Inter', sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-panel {
+        background: rgba(38, 38, 38, 0.6);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      /* Custom slider styling for the AI Creativity */
+      input[type=range]::-webkit-slider-runnable-track {
+        background: #262626;
+        height: 6px;
+        border-radius: 3px;
+      }
+      input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 18px;
+        width: 18px;
+        border-radius: 50%;
+        background: #b6a0ff;
+        cursor: pointer;
+        margin-top: -6px;
+        box-shadow: 0 0 10px rgba(182, 160, 255, 0.4);
+      }
+    </style>
+</head>
+<body class="bg-surface overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- SideNavBar Component -->
+<!-- EXECUTION: style_shell_layout, style_bg_color, style_component_shape -->
+<aside class="flex flex-col h-screen p-6 gap-8 bg-[#0e0e0e] dark:bg-[#0e0e0e] h-full w-64 flex-shrink-0 bg-[#131313] shadow-none font-['Manrope'] text-sm tracking-wide">
+<div class="flex flex-col gap-1">
+<!-- style_brand_logo -->
+<div class="flex items-center gap-3 mb-8">
+<span class="text-2xl font-black tracking-tighter text-[#b6a0ff]">PremiereAI</span>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex flex-col gap-2">
+<!-- General (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#adaaaa] hover:text-[#f5f5f5] transition-colors duration-300 hover:bg-[#20201f] transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>General</span>
+</a>
+<!-- AI Engine (Active) -->
+<!-- ACTIVE STATE LOGIC: AI Engine is active -->
+<!-- style_active_navigation -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#b6a0ff]/10 text-[#b6a0ff] font-bold rounded-xl relative after:content-[''] after:absolute after:right-0 after:h-4 after:w-1 after:bg-[#b6a0ff] after:rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span>AI Engine</span>
+</a>
+<!-- Appearance (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#adaaaa] hover:text-[#f5f5f5] transition-colors duration-300 hover:bg-[#20201f] transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+<span>Appearance</span>
+</a>
+<!-- Audio (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#adaaaa] hover:text-[#f5f5f5] transition-colors duration-300 hover:bg-[#20201f] transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="volume_up">volume_up</span>
+<span>Audio</span>
+</a>
+<!-- Export (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#adaaaa] hover:text-[#f5f5f5] transition-colors duration-300 hover:bg-[#20201f] transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+<span>Export</span>
+</a>
+</nav>
+</div>
+<!-- Footer Avatar & CTA -->
+<div class="mt-auto flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<img alt="User Profile" class="w-10 h-10 rounded-full object-cover" data-alt="Close up portrait of a stylish young man with a neutral expression against an urban minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbzL_T3HC2BlcZxn7grI3RY29ueFV8zq8ksgJgo7yoow3l6M64mzBkKsK03olZoGwcPiKcxZbADsarEmW9m-s6rPdzix84nhsqFn2D4aCT5TynvH03LgoT1SkZErwyUUpkqbCZEmVSs0sPs2DF8hBcIDhh7Tc2dJbYIRPUiT0YA53_LsVlphKa4yZZ6taMtDcPYbDSxEXi2OMl971pgD-NJH-bxJQQczdNo4F-B5T9iNkG5n1sjFP2qg5NLmxxF0iOs8Jrexs-mD5t"/>
+<div class="flex flex-col">
+<span class="text-on-surface font-bold text-xs uppercase tracking-widest">PremiereAI</span>
+<span class="text-on-surface-variant text-[10px]">The Digital Curator</span>
+</div>
+</div>
+<button class="w-full bg-[#b6a0ff] text-[#000000] font-bold py-3 rounded-xl active:scale-95 transition-transform">
+                    Apply Changes
+                </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 bg-surface overflow-y-auto">
+<!-- TopAppBar Component -->
+<!-- EXECUTION: style_bg_color, style_shell_layout -->
+<header class="flex justify-between items-center px-8 w-full border-b border-[#484847]/10 bg-[#0e0e0e]/80 backdrop-blur-xl w-full h-16 sticky top-0 z-50 font-['Manrope'] font-medium">
+<div class="flex items-center gap-4">
+<h1 class="text-lg font-bold text-white">AI Engine Settings</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-[#adaaaa] hover:bg-[#20201f] rounded-full p-2 transition-all">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="text-[#adaaaa] hover:bg-[#20201f] rounded-full p-2 transition-all">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+</header>
+<div class="p-10 max-w-4xl w-full mx-auto space-y-12">
+<!-- Section 1: AI Provider -->
+<section class="space-y-6">
+<div class="flex items-baseline justify-between">
+<h2 class="font-headline text-xl font-bold tracking-tight text-on-surface">AI Provider</h2>
+<span class="text-xs text-on-surface-variant uppercase tracking-widest">Core Engine</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl" data-icon="temp_preferences_custom">temp_preferences_custom</span>
+</div>
+<div>
+<h3 class="text-lg font-bold font-headline text-on-surface">BoongAI</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+<p class="text-sm text-on-surface-variant italic">Connected (user@domain.com)</p>
+</div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 rounded-lg text-error hover:bg-error/10 transition-colors text-sm font-medium">
+                                    Disconnect
+                                </button>
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-bright transition-colors text-sm font-medium flex items-center gap-2 border border-outline-variant/10">
+                                    Manage Account
+                                    <span class="material-symbols-outlined text-sm" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Default Model Selection -->
+<section class="space-y-6">
+<div>
+<h2 class="font-headline text-xl font-bold tracking-tight text-on-surface">Default Model Selection</h2>
+<p class="text-on-surface-variant text-sm mt-1">Choose the AI model for your editing tasks</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Card 1: Aura Turbo -->
+<label class="group cursor-pointer relative">
+<input checked="" class="peer sr-only" name="model" type="radio"/>
+<div class="h-full p-6 rounded-xl bg-surface-container-low border border-outline-variant/10 transition-all peer-checked:ring-2 peer-checked:ring-primary/50 peer-checked:bg-surface-container-high hover:border-primary/30">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline text-lg font-bold text-on-surface">Aura Turbo</h3>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant peer-checked:bg-primary peer-checked:border-primary flex items-center justify-center">
+<div class="w-2.5 h-2.5 bg-on-primary rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-6">
+                                    Lightning-fast processing. Best for quick drafts, auto-cuts, and basic audio syncing. Uses fewer credits.
+                                </p>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-secondary/10 text-secondary text-[10px] font-bold tracking-widest rounded-md uppercase">FAST</span>
+<span class="px-2 py-1 bg-tertiary/10 text-tertiary text-[10px] font-bold tracking-widest rounded-md uppercase">LOW-COST</span>
+</div>
+</div>
+</label>
+<!-- Card 2: Aura Pro -->
+<label class="group cursor-pointer relative">
+<input class="peer sr-only" name="model" type="radio"/>
+<div class="h-full p-6 rounded-xl bg-surface-container-low border border-outline-variant/10 transition-all peer-checked:ring-2 peer-checked:ring-primary/50 peer-checked:bg-surface-container-high hover:border-primary/30">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline text-lg font-bold text-on-surface">Aura Pro</h3>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant peer-checked:bg-primary peer-checked:border-primary flex items-center justify-center">
+<div class="w-2.5 h-2.5 bg-on-primary rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-6">
+                                    Deep contextual understanding. Best for complex prompts, precise highlight extraction, and advanced transitions.
+                                </p>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold tracking-widest rounded-md uppercase">HIGH QUALITY</span>
+</div>
+</div>
+</label>
+</div>
+</section>
+<!-- Section 3: Advanced Settings (Accordion) -->
+<section class="space-y-4">
+<details class="group bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/5" open="">
+<summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-surface-container-high transition-colors list-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="tune">tune</span>
+<span class="font-headline font-bold text-on-surface">Advanced Settings</span>
+</div>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="p-8 pt-2 space-y-8">
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<label class="text-sm font-medium text-on-surface">AI Creativity</label>
+<span class="text-xs font-mono text-primary bg-primary/10 px-2 py-0.5 rounded">65%</span>
+</div>
+<div class="relative pt-1">
+<input class="w-full appearance-none bg-transparent" max="100" min="0" type="range" value="65"/>
+<div class="flex justify-between mt-4">
+<div class="flex flex-col items-center">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Strict</span>
+<div class="h-1 w-[1px] bg-outline-variant mt-1"></div>
+</div>
+<div class="flex flex-col items-center">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Balanced</span>
+<div class="h-1 w-[1px] bg-outline-variant mt-1"></div>
+</div>
+<div class="flex flex-col items-center">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Creative</span>
+<div class="h-1 w-[1px] bg-outline-variant mt-1"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-6 border-t border-outline-variant/10 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-sm font-medium text-on-surface">Neural Processing Unit</span>
+<span class="text-xs text-on-surface-variant">Prioritize local hardware when available</span>
+</div>
+<div class="w-12 h-6 bg-primary rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 w-4 h-4 bg-on-primary rounded-full"></div>
+</div>
+</div>
+</div>
+</details>
+</section>
+<!-- Signature Texture: Promotional Card -->
+<div class="relative overflow-hidden rounded-2xl p-8 bg-gradient-to-br from-primary/10 via-surface-container-low to-secondary/10 border border-white/5">
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="space-y-2">
+<h4 class="font-headline font-extrabold text-2xl text-on-surface">Need more power?</h4>
+<p class="text-on-surface-variant text-sm max-w-sm">Upgrade to Premiere Pro AI to unlock 8K rendering and unlimited Aura Pro processing credits.</p>
+</div>
+<button class="bg-gradient-to-tr from-primary to-primary-dim px-8 py-3 rounded-xl text-on-primary font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+                            View Plans
+                        </button>
+</div>
+<!-- Decorative blur -->
+<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-primary/20 blur-[100px] rounded-full"></div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

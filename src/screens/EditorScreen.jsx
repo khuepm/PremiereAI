@@ -1,288 +1,187 @@
-import { useState, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import {
-  Play, Pause, Volume2, VolumeX, SkipBack, SkipForward,
-  Scissors, Trash2, Wand2, ChevronRight, Sparkles, Download,
-  PanelBottomOpen, PanelBottomClose, Send,
-} from "lucide-react";
+import { useState } from "react";
+import AppLayout from "../components/AppLayout";
+import AIPromptBar from "../components/AIPromptBar";
 import styles from "./EditorScreen.module.css";
 
-const MOCK_CLIPS = [
-  { id: "c1", label: "Clip 1", duration: 4.2, color: "#7c5cf6" },
-  { id: "c2", label: "Clip 2", duration: 3.1, color: "#a78bfa" },
-  { id: "c3", label: "Clip 3", duration: 5.8, color: "#7c5cf6" },
-  { id: "c4", label: "Clip 4", duration: 2.9, color: "#a78bfa" },
-  { id: "c5", label: "Clip 5", duration: 6.0, color: "#7c5cf6" },
+const MEDIA_ITEMS = [
+  { id: "m1", label: "Cityscape clip", duration: "0:12", aspect: "square", gradient: "linear-gradient(135deg, #1a1040 0%, #2d1b69 50%, #0d0828 100%)" },
+  { id: "m2", label: "Interview clip", duration: "1:04", aspect: "square", gradient: "linear-gradient(135deg, #2d1f0e 0%, #4a3520 50%, #1a0f05 100%)" },
+  { id: "m3", label: "Nature clip", duration: "2:45", aspect: "wide", gradient: "linear-gradient(135deg, #0a2520 0%, #1a3a4a 50%, #051812 100%)" },
+  { id: "m4", label: "Abstract clip", duration: "0:08", aspect: "square", gradient: "linear-gradient(135deg, #1f0a2a 0%, #3a1550 50%, #100518 100%)" },
 ];
 
-const MOCK_CHAT = [
-  { role: "ai", text: "I've assembled your first cut. The total runtime is 22 seconds. Want me to adjust anything?" },
+const TIMELINE_CLIPS = [
+  { id: "tc1", label: "Face Detection Clip", icon: "face", width: 192, color: "secondary" },
+  { id: "tc2", label: "Main Aerial 01", icon: "landscape", width: 320, color: "primary" },
+  { id: "tc3", label: "AI Transition", icon: "auto_fix", width: 128, color: "tertiary" },
+  { id: "tc4", label: "Close-up Shot", icon: "movie", width: 256, color: "secondary" },
 ];
+
+const WAVEFORM_HEIGHTS = [
+  50, 75, 25, 100, 50, 75, 100, 66, 40, 85, 30, 90, 55, 70, 35, 80,
+  45, 95, 60, 25, 70, 50, 85, 40, 65, 30, 90, 55, 75, 45, 80, 35,
+  60, 100, 50, 70, 40, 85, 55, 30,
+];
+
+const CLIP_COLOR_MAP = {
+  secondary: styles.trackClipSecondary,
+  primary: styles.trackClipPrimary,
+  tertiary: styles.trackClipTertiary,
+};
+
+const CLIP_ICON_COLOR_MAP = {
+  secondary: styles.clipIconSecondary,
+  primary: styles.clipIconPrimary,
+  tertiary: styles.clipIconTertiary,
+};
 
 export default function EditorScreen() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
   const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(false);
-  const [timelineOpen, setTimelineOpen] = useState(true);
-  const [clips, setClips] = useState(MOCK_CLIPS);
-  const [selectedClip, setSelectedClip] = useState(null);
-  const [chatMessages, setChatMessages] = useState(MOCK_CHAT);
-  const [aiInput, setAiInput] = useState("");
-  const [playhead, setPlayhead] = useState(0);
-  const chatEndRef = useRef(null);
-  const totalDuration = clips.reduce((s, c) => s + c.duration, 0);
-
-  const sendAiMessage = (e) => {
-    e.preventDefault();
-    if (!aiInput.trim()) return;
-    const msg = aiInput.trim();
-    setAiInput("");
-    setChatMessages((prev) => [
-      ...prev,
-      { role: "user", text: msg },
-      { role: "ai", text: getMockReply(msg) },
-    ]);
-    setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 50);
-  };
-
-  const removeClip = (id) => {
-    setClips((prev) => prev.filter((c) => c.id !== id));
-    if (selectedClip === id) setSelectedClip(null);
-  };
-
-  const splitClip = (id) => {
-    setClips((prev) =>
-      prev.flatMap((c) => {
-        if (c.id !== id) return [c];
-        const half = c.duration / 2;
-        return [
-          { ...c, id: c.id + "_a", label: c.label + "a", duration: half },
-          { ...c, id: c.id + "_b", label: c.label + "b", duration: half },
-        ];
-      })
-    );
-  };
 
   return (
-    <div className={styles.root}>
-      {/* Top bar */}
-      <header className={styles.topBar}>
-        <div className={styles.logoSmall}>
-          <Sparkles size={16} className={styles.logoIcon} />
-          <span>PremiereAI</span>
-        </div>
-        <div className={styles.topBarTitle}>Untitled project</div>
-        <div className={styles.topBarActions}>
-          <button
-            className={styles.exportBtn}
-            onClick={() => navigate("/export", { state: location.state })}
-          >
-            <Download size={15} />
-            Export
-          </button>
-        </div>
-      </header>
-
-      {/* Body */}
-      <div className={styles.body}>
-        {/* Left: Preview */}
-        <div className={styles.previewPanel}>
-          {/* Center Stage */}
-          <div className={styles.centerStage}>
-            <div className={styles.videoPlaceholder}>
-              <div className={styles.videoOverlay}>
-                <div className={styles.playButton} onClick={() => setPlaying((p) => !p)}>
-                  {playing ? <Pause size={32} /> : <Play size={32} />}
+    <AppLayout activeNav="media">
+      <div className={styles.editorRoot}>
+        {/* Top: Video Preview + Media Bin */}
+        <div className={styles.topSection}>
+          {/* Video Preview Player */}
+          <div className={styles.videoSection}>
+            <div className={styles.videoContainer}>
+              <div className={styles.videoPlaceholder} />
+              {/* Controls overlay — visible on hover */}
+              <div className={styles.videoControls}>
+                <div className={styles.controlsRow}>
+                  <div className={styles.controlsLeft}>
+                    <span
+                      className={`material-symbols-outlined ${styles.controlIcon}`}
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => setPlaying((p) => !p)}
+                      onKeyDown={(e) => e.key === "Enter" && setPlaying((p) => !p)}
+                    >
+                      {playing ? "pause" : "play_arrow"}
+                    </span>
+                    <span className={`material-symbols-outlined ${styles.controlIcon}`}>
+                      skip_next
+                    </span>
+                    <span className={styles.timecode}>00:42 / 02:15</span>
+                  </div>
+                  <div className={styles.controlsRight}>
+                    <span className={`material-symbols-outlined ${styles.controlIcon}`}>
+                      fullscreen
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div className={styles.videoLabel}>Preview</div>
-            </div>
-
-            {/* Playback controls */}
-            <div className={styles.controls}>
-              <button className={styles.controlBtn} onClick={() => setPlayhead(0)}>
-                <SkipBack size={16} />
-              </button>
-              <button
-                className={`${styles.controlBtn} ${styles.playBtn}`}
-                onClick={() => setPlaying((p) => !p)}
-              >
-                {playing ? <Pause size={18} /> : <Play size={18} />}
-              </button>
-              <button className={styles.controlBtn}>
-                <SkipForward size={16} />
-              </button>
-              <div className={styles.timecode}>
-                {formatTime(playhead)} / {formatTime(totalDuration)}
-              </div>
-              <button
-                className={styles.controlBtn}
-                onClick={() => setMuted((m) => !m)}
-              >
-                {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-              </button>
-            </div>
-
-            {/* Scrubber */}
-            <div className={styles.scrubberWrap}>
-              <input
-                type="range"
-                min={0}
-                max={totalDuration}
-                step={0.01}
-                value={playhead}
-                onChange={(e) => setPlayhead(Number(e.target.value))}
-                className={styles.scrubber}
-              />
             </div>
           </div>
 
-          {/* AI Prompt Bar */}
-          <div className={styles.promptBar}>
-            <div className={styles.promptHeader}>
-              <Wand2 size={14} className={styles.promptIcon} />
-              <span className={styles.promptHeaderText}>AI assistant</span>
+          {/* Media Bin */}
+          <div className={styles.mediaBin}>
+            <div className={styles.mediaBinHeader}>
+              <h3 className={styles.mediaBinTitle}>MEDIA BIN</h3>
+              <span className={`material-symbols-outlined ${styles.filterIcon}`}>
+                filter_list
+              </span>
             </div>
-            <div className={styles.chatMessages}>
-              {chatMessages.map((m, i) => (
+            <div className={styles.mediaBinScroll}>
+              <div className={styles.mediaBinGrid}>
+                {MEDIA_ITEMS.map((item) => (
+                  <div
+                    key={item.id}
+                    className={`${styles.mediaCard} ${
+                      item.aspect === "wide" ? styles.mediaCardWide : ""
+                    }`}
+                  >
+                    <div
+                      className={styles.mediaCardBg}
+                      style={{ background: item.gradient }}
+                    />
+                    <span className={styles.mediaDuration}>{item.duration}</span>
+                  </div>
+                ))}
+                <div className={styles.importCard}>
+                  <span className={`material-symbols-outlined ${styles.importIcon}`}>
+                    add_to_photos
+                  </span>
+                  <span className={styles.importLabel}>Import</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom: Smart Timeline */}
+        <section className={styles.timeline}>
+          <div className={styles.timelineHeader}>
+            <div className={styles.timelineHeaderLeft}>
+              <div className={styles.timelineLabel}>
+                <span className={`material-symbols-outlined ${styles.timelineLabelIcon}`}>
+                  tune
+                </span>
+                <span className={styles.timelineLabelText}>Smart Timeline</span>
+              </div>
+              <div className={styles.timelineTools}>
+                <span className={`material-symbols-outlined ${styles.toolIcon}`}>undo</span>
+                <span className={`material-symbols-outlined ${styles.toolIcon}`}>redo</span>
+                <span className={`material-symbols-outlined ${styles.toolIcon}`}>content_cut</span>
+              </div>
+            </div>
+            <div className={styles.timelineZoom}>
+              <span className={`material-symbols-outlined ${styles.zoomIcon}`}>zoom_out</span>
+              <div className={styles.zoomTrack}>
+                <div className={styles.zoomFill} />
+              </div>
+              <span className={`material-symbols-outlined ${styles.zoomIcon}`}>zoom_in</span>
+            </div>
+          </div>
+
+          {/* Timeline Tracks */}
+          <div className={styles.timelineTracks}>
+            {/* Playhead */}
+            <div className={styles.playhead}>
+              <div className={styles.playheadDot} />
+            </div>
+
+            {/* Track 1: Video */}
+            <div className={styles.videoTrack}>
+              {TIMELINE_CLIPS.map((clip) => (
                 <div
-                  key={i}
-                  className={`${styles.chatBubble} ${m.role === "user" ? styles.chatUser : styles.chatAi}`}
+                  key={clip.id}
+                  className={`${styles.trackClip} ${CLIP_COLOR_MAP[clip.color] ?? ""}`}
+                  style={{ width: clip.width }}
                 >
-                  {m.role === "ai" && (
-                    <Sparkles size={12} className={styles.chatAiIcon} />
-                  )}
-                  <span>{m.text}</span>
+                  <span
+                    className={`material-symbols-outlined ${styles.clipIcon} ${
+                      CLIP_ICON_COLOR_MAP[clip.color] ?? ""
+                    }`}
+                  >
+                    {clip.icon}
+                  </span>
+                  <span className={styles.clipLabel}>{clip.label}</span>
                 </div>
               ))}
-              <div ref={chatEndRef} />
             </div>
-            <form className={styles.chatForm} onSubmit={sendAiMessage}>
-              <input
-                className={styles.chatInput}
-                placeholder="Tell AI what to change…"
-                value={aiInput}
-                onChange={(e) => setAiInput(e.target.value)}
-              />
-              <button className={styles.chatSendBtn} type="submit">
-                <Send size={14} />
-              </button>
-            </form>
-          </div>
-        </div>
 
-        {/* Right: Timeline panel */}
-        <div className={`${styles.timelinePanel} ${!timelineOpen ? styles.timelinePanelCollapsed : ""}`}>
-          <div className={styles.timelineHeader}>
-            <span className={styles.timelineTitle}>Smart Timeline</span>
-            <div className={styles.timelineHeaderActions}>
-              <span className={styles.clipCount}>{clips.length} clips · {formatTime(totalDuration)}</span>
-              <button
-                className={styles.toggleTimeline}
-                onClick={() => setTimelineOpen((o) => !o)}
-                title={timelineOpen ? "Collapse timeline" : "Expand timeline"}
-              >
-                {timelineOpen ? <PanelBottomClose size={15} /> : <PanelBottomOpen size={15} />}
-              </button>
-            </div>
-          </div>
-
-          {timelineOpen && (
-            <>
-              {/* Ruler */}
-              <TimelineRuler duration={totalDuration} />
-
-              {/* Clips track */}
-              <div className={styles.timelineTrack}>
-                {clips.map((clip) => (
-                  <ClipBlock
-                    key={clip.id}
-                    clip={clip}
-                    totalDuration={totalDuration}
-                    selected={selectedClip === clip.id}
-                    onSelect={() => setSelectedClip(clip.id === selectedClip ? null : clip.id)}
-                    onSplit={() => splitClip(clip.id)}
-                    onRemove={() => removeClip(clip.id)}
-                  />
-                ))}
+            {/* Track 2: Audio */}
+            <div className={styles.audioTrack}>
+              <div className={styles.audioClip}>
+                <div className={styles.waveform}>
+                  {WAVEFORM_HEIGHTS.map((h, i) => (
+                    <div
+                      key={i}
+                      className={styles.waveBar}
+                      style={{ height: `${h}%` }}
+                    />
+                  ))}
+                </div>
               </div>
-
-              {/* Playhead overlay line */}
-              <div
-                className={styles.playheadLine}
-                style={{ left: `${(playhead / totalDuration) * 100}%` }}
-              />
-            </>
-          )}
-        </div>
+            </div>
+          </div>
+        </section>
       </div>
-    </div>
+
+      <AIPromptBar placeholder="Ask AI to 'remove the background' or 'add cinematic lighting'..." />
+    </AppLayout>
   );
-}
-
-/* --- Sub-components --- */
-
-function TimelineRuler({ duration }) {
-  const ticks = Math.ceil(duration);
-  return (
-    <div className={styles.ruler}>
-      {Array.from({ length: ticks + 1 }, (_, i) => (
-        <div key={i} className={styles.tick} style={{ left: `${(i / duration) * 100}%` }}>
-          <span className={styles.tickLabel}>{i}s</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function ClipBlock({ clip, totalDuration, selected, onSelect, onSplit, onRemove }) {
-  const widthPct = (clip.duration / totalDuration) * 100;
-  return (
-    <div
-      className={`${styles.clip} ${selected ? styles.clipSelected : ""}`}
-      style={{ width: `${widthPct}%`, background: clip.color }}
-      onClick={onSelect}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => e.key === "Enter" && onSelect()}
-    >
-      <span className={styles.clipLabel}>{clip.label}</span>
-      <span className={styles.clipDuration}>{clip.duration.toFixed(1)}s</span>
-      {selected && (
-        <div className={styles.clipActions}>
-          <button
-            className={styles.clipActionBtn}
-            onClick={(e) => { e.stopPropagation(); onSplit(); }}
-            title="Split clip"
-          >
-            <Scissors size={12} />
-          </button>
-          <button
-            className={styles.clipActionBtn}
-            onClick={(e) => { e.stopPropagation(); onRemove(); }}
-            title="Remove clip"
-          >
-            <Trash2 size={12} />
-          </button>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function formatTime(sec) {
-  const m = Math.floor(sec / 60);
-  const s = Math.floor(sec % 60);
-  return `${m}:${String(s).padStart(2, "0")}`;
-}
-
-function getMockReply(msg) {
-  const lower = msg.toLowerCase();
-  if (lower.includes("shorten") || lower.includes("trim")) return "Trimmed the longest clips by 20%. Timeline updated!";
-  if (lower.includes("music") || lower.includes("audio")) return "Syncing the beat drops to your cut points now…";
-  if (lower.includes("colour") || lower.includes("color")) return "Applying a cinematic color grade across all clips.";
-  if (lower.includes("slow")) return "Added a 50% slow-motion effect to your selected clip.";
-  return "Got it! Making that change to your edit now…";
 }
