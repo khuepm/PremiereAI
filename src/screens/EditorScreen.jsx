@@ -39,7 +39,7 @@ export default function EditorScreen() {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <AppLayout activeNav="media">
+    <AppLayout activeNav="assets">
       <div className={styles.editorRoot}>
         {/* Top: Video Preview + Media Bin */}
         <div className={styles.topSection}>

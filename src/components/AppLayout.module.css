@@ -118,6 +118,7 @@
   display: flex;
   flex-direction: column;
   background: var(--surface-container-low);
+  border-right: 1px solid rgba(72, 72, 71, 0.15);
 }
 
 .sidebarProject {
@@ -201,6 +202,7 @@
 
 .sidebarBottom {
   padding: var(--space-8) 0 var(--space-3);
+  border-top: 1px solid rgba(72, 72, 71, 0.15);
 }
 
 /* ---- Main Content ---- */
